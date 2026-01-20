@@ -20,19 +20,26 @@
     }
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
 body {
     font-family: var(--font-main);
     background-color: var(--bg-body);
     color: var(--text-main);
-    line-height: 1.6;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-a { text-decoration: none; color: inherit; transition: 0.2s; }
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: 0.2s;
+}
 
 /* Layout */
 .container {
@@ -46,9 +53,7 @@ header {
     background-color: var(--bg-card);
     border-bottom: 1px solid var(--border);
     padding: 1rem 0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    margin-bottom: 2rem;
 }
 
 nav {
@@ -61,6 +66,9 @@ nav {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .nav-links {
@@ -68,50 +76,124 @@ nav {
     gap: 1.5rem;
 }
 
-.nav-links a:hover { color: var(--primary); }
+.nav-links a:hover {
+    color: var(--primary);
+}
 
-main { flex: 1; padding: 2rem 0; }
+main {
+    flex: 1;
+    padding-bottom: 4rem;
+}
 
-/* Grid for Tools */
+/* Search Area */
+.hero-search {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.hero-search h1 {
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+}
+
+#tool-search {
+    width: 100%;
+    max-width: 500px;
+    padding: 1rem 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 2rem;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+    transition: 0.2s;
+}
+
+#tool-search:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgb(59 130 246 / 0.1);
+}
+
+/* Grid for Tools - PDF24 Style: Minimal, uniform */
 .tools-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
 }
 
 .tool-card {
     background: var(--bg-card);
     border: 1px solid var(--border);
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    transition: transform 0.2s, box-shadow 0.2s;
+    border-radius: 0.5rem;
+    padding: 2rem 1rem;
+    text-align: center;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     height: 100%;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    color: var(--text-main);
+    text-decoration: none;
+    /* Ensure link style doesn't override */
 }
 
 .tool-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow);
     border-color: var(--primary);
+    background-color: rgb(59 130 246 / 0.05);
+    /* Very light blue tint */
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
 }
 
 .tool-icon {
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-bottom: 1rem;
 }
 
 .tool-card h3 {
-    margin-bottom: 0.5rem;
-    font-size: 1.25rem;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
 }
 
-.tool-card p {
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    margin-bottom: 1rem;
-    flex-grow: 1;
+/* Remove 'btn' within cards for index, but keep for other uses if needed */
+.tool-card .btn {
+    display: none;
+}
+
+/* Tool Internal Pages */
+.tool-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--bg-card);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 1rem;
 }
 
 .btn {
@@ -126,43 +208,14 @@ main { flex: 1; padding: 2rem 0; }
     cursor: pointer;
 }
 
-.btn:hover { background-color: var(--primary-hover); }
-
-.btn-sm { padding: 0.5rem 1rem; font-size: 0.9rem; width: 100%; }
-
-/* Tool Specific Pages */
-.tool-container {
-    max-width: 800px;
-    margin: 0 auto;
-    background: var(--bg-card);
-    padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border);
+.btn:hover {
+    background-color: var(--primary-hover);
 }
 
-.input-group { margin-bottom: 1.5rem; }
-
-label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-}
-
-input, select, textarea {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid var(--border);
-    border-radius: 0.5rem;
-    background-color: var(--bg-body);
-    color: var(--text-main);
-    font-family: inherit;
-    font-size: 1rem;
-}
-
-input:focus, select:focus, textarea:focus {
-    outline: 2px solid var(--primary);
-    border-color: transparent;
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    width: auto;
 }
 
 .result-box {
@@ -173,27 +226,21 @@ input:focus, select:focus, textarea:focus {
     border: 1px solid var(--border);
 }
 
-/* Footer */
 footer {
-    background-color: var(--bg-card);
     border-top: 1px solid var(--border);
     padding: 2rem 0;
     margin-top: auto;
     text-align: center;
     color: var(--text-muted);
+    font-size: 0.9rem;
 }
 
-/* Breadcrumbs */
 .breadcrumbs {
     margin-bottom: 2rem;
     color: var(--text-muted);
     font-size: 0.9rem;
 }
 
-.breadcrumbs a { color: var(--primary); }
-.breadcrumbs span { margin: 0 0.5rem; }
-
-@media (max-width: 600px) {
-    .nav-links { display: none; } /* Todo: Mobile Menu */
-    .tool-container { padding: 1.5rem; }
+.breadcrumbs a {
+    color: var(--primary);
 }
