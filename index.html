@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tulz.net - All-in-One Developer & Utility Hub</title>
+    <title>Tulz.net - 50+ Free Native Developer & Utility Tools</title>
     <meta name="description"
-        content="Free online tool hub. Convert PDF, resize images, generate passwords, and more. 50+ Tools. Fast & Private.">
+        content="Ultimate collection of 50+ free online tools. PDF converters, AI tools, Image editors, Code formatters. Runs locally in your browser.">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -26,8 +26,8 @@
                 <div class="nav-links">
                     <a href="#pdf-tools">PDF</a>
                     <a href="#image-tools">Image</a>
-                    <a href="#text-tools">Text</a>
                     <a href="#ai-tools">AI</a>
+                    <a href="#dev-tools">Dev</a>
                 </div>
             </nav>
         </div>
@@ -35,151 +35,238 @@
 
     <main class="container">
         <section class="hero-search">
-            <h1>What would you like to do?</h1>
-            <input type="text" id="tool-search" placeholder="Search for PDF, Image, or AI tools..." autocomplete="off">
+            <h1>All-in-One Utility Hub</h1>
+            <p style="color:var(--text-muted); margin-bottom:1.5rem;">55+ Tools running natively in your browser</p>
+            <input type="text" id="tool-search" placeholder="Search for tools (e.g. 'Remove BG', 'Word to PDF')..."
+                autocomplete="off">
         </section>
 
-        <!-- PDF Tools Category -->
+        <!-- 1. PDF Tools -->
         <section id="pdf-tools">
             <div class="category-header">
                 <div class="category-icon">📄</div>
                 <h2>PDF Tools</h2>
-                <a href="#pdf-tools" style="margin-left: auto; font-size: 0.9rem; color: var(--primary);">View All
-                    &rarr;</a>
             </div>
             <div class="tools-grid">
-                <a href="tools/jpg-to-pdf.html" class="tool-card" data-keywords="jpg to pdf image convert">
-                    <div class="tool-icon">🖼️</div>
-                    <h3>JPG to PDF</h3>
-                    <p>Convert images to PDF</p>
+                <a href="tools/word-to-pdf.html" class="tool-card" data-keywords="word to pdf docx document">
+                    <div class="tool-icon">📝</div>
+                    <h3>Word to PDF</h3>
+                </a>
+                <a href="tools/pdf-to-word.html" class="tool-card" data-keywords="pdf to word editable docx">
+                    <div class="tool-icon">📄</div>
+                    <h3>PDF to Word</h3>
                 </a>
                 <a href="tools/merge-pdf.html" class="tool-card" data-keywords="merge pdf combine join">
                     <div class="tool-icon">📑</div>
                     <h3>Merge PDF</h3>
-                    <p>Combine multiple files</p>
                 </a>
-                <!-- Placeholders for future tools -->
-                <a href="#" class="tool-card" style="opacity: 0.6; cursor: not-allowed;" title="Coming Soon">
+                <a href="tools/split-pdf.html" class="tool-card" data-keywords="split pdf extract pages">
                     <div class="tool-icon">✂️</div>
                     <h3>Split PDF</h3>
-                    <p>Coming Soon</p>
                 </a>
-                <a href="#" class="tool-card" style="opacity: 0.6; cursor: not-allowed;" title="Coming Soon">
-                    <div class="tool-icon">🤐</div>
+                <a href="tools/compress-pdf.html" class="tool-card" data-keywords="compress pdf reduce size">
+                    <div class="tool-icon">🗜️</div>
                     <h3>Compress PDF</h3>
-                    <p>Coming Soon</p>
+                </a>
+                <a href="tools/excel-to-pdf.html" class="tool-card" data-keywords="excel to pdf sheets xlsx">
+                    <div class="tool-icon">📊</div>
+                    <h3>Excel to PDF</h3>
+                </a>
+                <a href="tools/pdf-to-excel.html" class="tool-card" data-keywords="pdf to excel table data">
+                    <div class="tool-icon">📉</div>
+                    <h3>PDF to Excel</h3>
+                </a>
+                <a href="tools/jpg-to-pdf.html" class="tool-card" data-keywords="image to pdf photos">
+                    <div class="tool-icon">🖼️</div>
+                    <h3>Image to PDF</h3>
+                </a>
+                <a href="tools/pdf-to-jpg.html" class="tool-card" data-keywords="pdf to jpg convert images">
+                    <div class="tool-icon">🏞️</div>
+                    <h3>PDF to JPG</h3>
+                </a>
+                <a href="tools/protect-pdf.html" class="tool-card" data-keywords="protect pdf password lock">
+                    <div class="tool-icon">🔒</div>
+                    <h3>Protect PDF</h3>
+                </a>
+                <a href="tools/unlock-pdf.html" class="tool-card" data-keywords="unlock pdf remove password">
+                    <div class="tool-icon">🔓</div>
+                    <h3>Unlock PDF</h3>
+                </a>
+                <a href="tools/watermark-pdf.html" class="tool-card" data-keywords="watermark pdf stamp logo">
+                    <div class="tool-icon">©️</div>
+                    <h3>PDF Watermark</h3>
+                </a>
+                <a href="tools/rotate-pdf.html" class="tool-card" data-keywords="rotate pdf turn pages">
+                    <div class="tool-icon">🔄</div>
+                    <h3>Rotate PDF</h3>
+                </a>
+                <a href="tools/pdf-numbers.html" class="tool-card" data-keywords="page numbers count">
+                    <div class="tool-icon">🔢</div>
+                    <h3>Page Numbers</h3>
                 </a>
             </div>
         </section>
 
-        <!-- Image Tools Category -->
+        <!-- 2. Image & Graphics -->
         <section id="image-tools">
             <div class="category-header">
-                <div class="category-icon">🖼️</div>
-                <h2>Image Tools</h2>
-                <a href="#image-tools" style="margin-left: auto; font-size: 0.9rem; color: var(--primary);">View All
-                    &rarr;</a>
+                <div class="category-icon">🎨</div>
+                <h2>Image & Graphics</h2>
             </div>
             <div class="tools-grid">
-                <a href="tools/image-resizer.html" class="tool-card" data-keywords="resize image pixels scale">
+                <a href="tools/remove-bg.html" class="tool-card" data-keywords="remove background ai transparent">
+                    <div class="tool-icon">🪄</div>
+                    <h3>Remove BG (AI)</h3>
+                </a>
+                <a href="tools/image-resizer.html" class="tool-card" data-keywords="resize image pixels">
                     <div class="tool-icon">📐</div>
                     <h3>Image Resizer</h3>
-                    <p>Resize dimensions %</p>
                 </a>
-                <a href="tools/qr-generator.html" class="tool-card" data-keywords="qr code generator create">
+                <a href="tools/image-cropper.html" class="tool-card" data-keywords="crop image cut photo">
+                    <div class="tool-icon">✂️</div>
+                    <h3>Image Cropper</h3>
+                </a>
+                <a href="tools/png-to-jpg.html" class="tool-card" data-keywords="png to jpg convert format">
+                    <div class="tool-icon">🖼️</div>
+                    <h3>PNG to JPG</h3>
+                </a>
+                <a href="tools/jpg-to-png.html" class="tool-card" data-keywords="jpg to png transparent">
+                    <div class="tool-icon">🏁</div>
+                    <h3>JPG to PNG</h3>
+                </a>
+                <a href="tools/webp-converter.html" class="tool-card" data-keywords="webp converter images">
+                    <div class="tool-icon">🌐</div>
+                    <h3>WebP Converter</h3>
+                </a>
+                <a href="tools/favicon-generator.html" class="tool-card" data-keywords="favicon generator icon ico">
+                    <div class="tool-icon">⭐</div>
+                    <h3>Favicon Gen</h3>
+                </a>
+                <a href="tools/qr-generator.html" class="tool-card" data-keywords="qr code generator">
                     <div class="tool-icon">📱</div>
                     <h3>QR Code Gen</h3>
-                    <p>Create QR Codes</p>
                 </a>
-                <a href="tools/color-converter.html" class="tool-card" data-keywords="color hex rgb picker">
+                <a href="tools/color-converter.html" class="tool-card" data-keywords="color picker hex rgb">
                     <div class="tool-icon">🎨</div>
-                    <h3>Color Palette</h3>
-                    <p>RGB / Hex Converter</p>
+                    <h3>Color Picker</h3>
+                </a>
+                <a href="tools/image-flip.html" class="tool-card" data-keywords="flip image mirror rotate">
+                    <div class="tool-icon">↔️</div>
+                    <h3>Image Flip</h3>
+                </a>
+                <a href="tools/black-white.html" class="tool-card" data-keywords="black and white grayscale filter">
+                    <div class="tool-icon">⚫</div>
+                    <h3>B&W Filter</h3>
+                </a>
+                <a href="tools/watermark-image.html" class="tool-card" data-keywords="watermark photo add logo">
+                    <div class="tool-icon">©️</div>
+                    <h3>Add Watermark</h3>
+                </a>
+                <a href="tools/meme-generator.html" class="tool-card" data-keywords="meme generator funny text">
+                    <div class="tool-icon">🤣</div>
+                    <h3>Meme Generator</h3>
+                </a>
+                <a href="tools/base64-image.html" class="tool-card" data-keywords="base64 to image encode decode">
+                    <div class="tool-icon">🔢</div>
+                    <h3>Base64 to Image</h3>
                 </a>
             </div>
         </section>
 
-        <!-- Text & Utility Tools Category -->
-        <section id="text-tools">
+        <!-- 3. AI & Text Tools -->
+        <section id="ai-tools">
             <div class="category-header">
-                <div class="category-icon">📝</div>
-                <h2>Text & Utilities</h2>
-                <a href="#text-tools" style="margin-left: auto; font-size: 0.9rem; color: var(--primary);">View All
-                    &rarr;</a>
+                <div class="category-icon">🤖</div>
+                <h2>AI & Text Tools</h2>
             </div>
             <div class="tools-grid">
-                <a href="tools/word-counter.html" class="tool-card" data-keywords="word counter text">
+                <a href="tools/ai-writer.html" class="tool-card" data-keywords="ai writer chatgpt content">
+                    <div class="tool-icon">✍️</div>
+                    <h3>AI Writer</h3>
+                </a>
+                <a href="tools/ai-summarizer.html" class="tool-card" data-keywords="summarizer summary text">
+                    <div class="tool-icon">📝</div>
+                    <h3>Summarizer</h3>
+                </a>
+                <a href="tools/ai-grammar.html" class="tool-card" data-keywords="grammar checker spell fix">
+                    <div class="tool-icon">✔️</div>
+                    <h3>Grammar Check</h3>
+                </a>
+                <a href="tools/ai-translate.html" class="tool-card" data-keywords="translator language convert">
+                    <div class="tool-icon">🌐</div>
+                    <h3>AI Translator</h3>
+                </a>
+                <a href="tools/word-counter.html" class="tool-card" data-keywords="word counter chars">
                     <div class="tool-icon">📊</div>
                     <h3>Word Counter</h3>
-                    <p>Count words/chars</p>
                 </a>
-                <a href="tools/password-generator.html" class="tool-card" data-keywords="password generator security">
-                    <div class="tool-icon">🔒</div>
-                    <h3>Password Gen</h3>
-                    <p>Create secure keys</p>
-                </a>
-                <a href="tools/case-converter.html" class="tool-card"
-                    data-keywords="case converter uppercase lowercase">
-                    <div class="tool-icon">Aa</div>
+                <a href="tools/case-converter.html" class="tool-card" data-keywords="case converter upper lower">
+                    <div class="tool-icon">🔠</div>
                     <h3>Case Converter</h3>
-                    <p>Upper/Lower Case</p>
                 </a>
-                <a href="tools/lorem-ipsum.html" class="tool-card" data-keywords="lorem ipsum placeholder">
+                <a href="tools/lorem-ipsum.html" class="tool-card" data-keywords="lorem ipsum dummy text">
                     <div class="tool-icon">📄</div>
                     <h3>Lorem Ipsum</h3>
-                    <p>Dummy Text Gen</p>
+                </a>
+                <a href="tools/password-generator.html" class="tool-card" data-keywords="password generator secure">
+                    <div class="tool-icon">🔑</div>
+                    <h3>Password Gen</h3>
+                </a>
+                <a href="tools/text-speech.html" class="tool-card" data-keywords="text to speech voice audio">
+                    <div class="tool-icon">🗣️</div>
+                    <h3>Text to Speech</h3>
+                </a>
+            </div>
+        </section>
+
+        <!-- 4. Development & Extras -->
+        <section id="dev-tools">
+            <div class="category-header">
+                <div class="category-icon">🛠️</div>
+                <h2>Development & Extras</h2>
+            </div>
+            <div class="tools-grid">
+                <a href="tools/json-viewer.html" class="tool-card" data-keywords="json viewer info format">
+                    <div class="tool-icon">{}</div>
+                    <h3>JSON Viewer</h3>
+                </a>
+                <a href="tools/css-minifier.html" class="tool-card" data-keywords="css minifier compress code">
+                    <div class="tool-icon">🎨</div>
+                    <h3>CSS Minifier</h3>
+                </a>
+                <a href="tools/js-validator.html" class="tool-card" data-keywords="js validator javascript lint">
+                    <div class="tool-icon">📜</div>
+                    <h3>JS Validator</h3>
+                </a>
+                <a href="tools/diff-checker.html" class="tool-card" data-keywords="diff checker compare text">
+                    <div class="tool-icon">⚖️</div>
+                    <h3>Diff Checker</h3>
+                </a>
+                <a href="tools/html-formatter.html" class="tool-card" data-keywords="html formatter beautify code">
+                    <div class="tool-icon">💻</div>
+                    <h3>HTML Beautifier</h3>
+                </a>
+                <a href="tools/url-shortener.html" class="tool-card" data-keywords="url shortener link">
+                    <div class="tool-icon">🔗</div>
+                    <h3>URL Shortener</h3>
+                </a>
+                <a href="tools/unit-converter.html" class="tool-card"
+                    data-keywords="unit converter measure weight length">
+                    <div class="tool-icon">📏</div>
+                    <h3>Unit Converter</h3>
                 </a>
                 <a href="tools/timestamp-converter.html" class="tool-card" data-keywords="timestamp unix epoch">
                     <div class="tool-icon">🕒</div>
                     <h3>Timestamp</h3>
-                    <p>Epoch Converter</p>
                 </a>
-                <a href="tools/age-calculator.html" class="tool-card" data-keywords="age calculator birthday">
+                <a href="tools/age-calculator.html" class="tool-card" data-keywords="age calculator birth">
                     <div class="tool-icon">🎂</div>
                     <h3>Age Calculator</h3>
-                    <p>Exact Age Calc</p>
-                </a>
-                <a href="tools/bmi-calculator.html" class="tool-card" data-keywords="bmi calculator health">
-                    <div class="tool-icon">⚖️</div>
-                    <h3>BMI Calculator</h3>
-                    <p>Body Mass Index</p>
                 </a>
             </div>
         </section>
 
-        <!-- AI Tools (Placeholders/External) -->
-        <section id="ai-tools">
-            <div class="category-header">
-                <div class="category-icon">🤖</div>
-                <h2>AI Tools <span
-                        style="font-size: 0.8rem; background: var(--primary); color: white; padding: 2px 6px; border-radius: 4px; vertical-align: middle;">POPULAR</span>
-                </h2>
-            </div>
-            <div class="tools-grid">
-                <a href="https://chatgpt.com" target="_blank" class="tool-card">
-                    <div class="tool-icon">💬</div>
-                    <h3>AI Content Writer</h3>
-                    <p>Via ChatGPT</p>
-                </a>
-                <a href="https://www.bing.com/images/create" target="_blank" class="tool-card">
-                    <div class="tool-icon">🎨</div>
-                    <h3>AI Image Gen</h3>
-                    <p>Via DALL-E 3</p>
-                </a>
-                <a href="https://quillbot.com" target="_blank" class="tool-card">
-                    <div class="tool-icon">✍️</div>
-                    <h3>AI Paraphraser</h3>
-                    <p>Via QuillBot</p>
-                </a>
-                <a href="https://remove.bg" target="_blank" class="tool-card">
-                    <div class="tool-icon">🖼️</div>
-                    <h3>Remove BG</h3>
-                    <p>Via Remove.bg</p>
-                </a>
-            </div>
-        </section>
-
-        <p id="no-results" style="text-align: center; margin-top: 2rem; color: var(--text-muted); display: none;">No
+        <p id="no-results" style="text-align: center; margin-top: 3rem; color: var(--text-muted); display: none;">No
             tools found matching your search.</p>
     </main>
 

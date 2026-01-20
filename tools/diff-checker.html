@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Diff Checker - Tulz.net</title>
+    <meta name="description" content="Compare two text files and see the difference side-by-side or inline.">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/5.1.0/diff.min.js"></script>
+    <style>
+        .diff-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .diff-result {
+            white-space: pre-wrap;
+            font-family: monospace;
+            background: #f1f5f9;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+        }
+
+        .added {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+
+        .removed {
+            background-color: #fee2e2;
+            color: #991b1b;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#dev-tools">Dev Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-container" style="max-width: 1000px;">
+            <h1>Diff Checker</h1>
+
+            <div class="diff-container">
+                <div>
+                    <label>Original Text</label>
+                    <textarea id="text1" rows="10" placeholder="Original content..."></textarea>
+                </div>
+                <div>
+                    <label>Changed Text</label>
+                    <textarea id="text2" rows="10" placeholder="New content..."></textarea>
+                </div>
+            </div>
+
+            <button class="btn" onclick="compare()" style="width: 100%; margin: 1.5rem 0;">Compare Differences</button>
+
+            <div id="result" class="diff-result" style="display: none;"></div>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script>
+        function compare() {
+            const one = document.getElementById('text1').value;
+            const other = document.getElementById('text2').value;
+            const diff = Diff.diffWords(one, other);
+            const display = document.getElementById('result');
+
+            display.innerHTML = '';
+
+            diff.forEach((part) => {
+                const span = document.createElement('span');
+                span.style.color = part.added ? 'green' : part.removed ? 'red' : 'grey';
+                if (part.added) span.className = 'added';
+                if (part.removed) span.className = 'removed';
+                span.appendChild(document.createTextNode(part.value + ' '));
+                display.appendChild(span);
+            });
+
+            display.style.display = 'block';
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Minifier - Tulz.net</title>
+    <meta name="description" content="Minify your CSS code to reduce file size and improve website loading speed.">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        textarea {
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#dev-tools">Dev Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-container">
+            <h1>CSS Minifier</h1>
+
+            <label>Input CSS:</label>
+            <textarea id="css-input" rows="10" placeholder=".class { color: red; }"></textarea>
+
+            <button class="btn" onclick="minifyCSS()" style="width: 100%; margin: 1.5rem 0;">Minify CSS</button>
+
+            <label>Minified Output:</label>
+            <textarea id="css-output" rows="10" readonly></textarea>
+            <button class="btn btn-sm" onclick="copyOutput()" style="margin-top: 0.5rem;">Copy Output</button>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script>
+        function minifyCSS() {
+            let css = document.getElementById('css-input').value;
+            // Remove comments, newlines, extra spaces
+            css = css.replace(/\/\*[\s\S]*?\*\//g, "")
+                .replace(/\n/g, "")
+                .replace(/\s*\{\s*/g, "{")
+                .replace(/\s*\}\s*/g, "}")
+                .replace(/\s*:\s*/g, ":")
+                .replace(/\s*;\s*/g, ";");
+            document.getElementById('css-output').value = css;
+        }
+
+        function copyOutput() {
+            navigator.clipboard.writeText(document.getElementById('css-output').value);
+            alert("Copied!");
+        }
+    </script>
+</body>
+
+</html>

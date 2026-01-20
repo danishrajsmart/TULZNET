@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotate PDF - Tulz.net</title>
+    <meta name="description" content="Rotate PDF pages online. Turn PDF 90, 180, or 270 degrees. Native browser tool.">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#pdf-tools">PDF Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-container">
+            <h1>Rotate PDF</h1>
+
+            <div id="drop-zone" class="upload-zone">
+                <div class="tool-icon">🔄</div>
+                <h3>Upload PDF</h3>
+                <input type="file" id="file-input" accept="application/pdf" style="display: none;">
+                <button class="btn btn-secondary" onclick="document.getElementById('file-input').click()">Select
+                    PDF</button>
+            </div>
+
+            <div id="rotate-stage" style="display: none; text-align: center;">
+                <p>File loaded successfully.</p>
+                <div style="margin: 2rem 0;">
+                    <button class="btn btn-secondary" onclick="rotate(90)">Rotate Right 90°</button>
+                    <button class="btn btn-secondary" onclick="rotate(270)">Rotate Left 90°</button>
+                    <button class="btn btn-secondary" onclick="rotate(180)">Flip 180°</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script>
+        let loadedBytes = null;
+        let loadedName = "";
+
+        document.getElementById('file-input').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            loadedName = file.name;
+            loadedBytes = await file.arrayBuffer();
+
+            document.getElementById('drop-zone').style.display = 'none';
+            document.getElementById('rotate-stage').style.display = 'block';
+        });
+
+        async function rotate(degrees) {
+            const pdfDoc = await PDFLib.PDFDocument.load(loadedBytes);
+            const pages = pdfDoc.getPages();
+            pages.forEach(page => {
+                const current = page.getRotation().angle;
+                page.setRotation(PDFLib.degrees(current + degrees));
+            });
+
+            const bytes = await pdfDoc.save();
+            const blob = new Blob([bytes], { type: 'application/pdf' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = "rotated-" + loadedName;
+            link.click();
+        }
+    </script>
+</body>
+
+</html>

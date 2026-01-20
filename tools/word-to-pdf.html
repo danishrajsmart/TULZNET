@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word to PDF Converter - Tulz.net</title>
+    <meta name="description"
+        content="Convert Word documents (DOCX) to PDF online for free. Native browser-based conversion.">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.21/mammoth.browser.min.js"></script>
+    <style>
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            #preview-container,
+            #preview-container * {
+                visibility: visible;
+            }
+
+            #preview-container {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                border: none;
+                padding: 0;
+            }
+        }
+
+        #preview-container {
+            background: white;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            min-height: 500px;
+            margin-bottom: 2rem;
+            overflow-y: auto;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#pdf-tools">PDF Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-container" style="max-width: 900px;">
+            <h1>Word (DOCX) to PDF</h1>
+            <p class="text-muted">Convert DOCX to PDF instantly in your browser.</p>
+
+            <div id="drop-zone" class="upload-zone">
+                <div class="tool-icon">📝</div>
+                <h3>Upload Word File (.docx)</h3>
+                <input type="file" id="file-input" accept=".docx" style="display: none;">
+                <button class="btn btn-secondary" onclick="document.getElementById('file-input').click()">Select
+                    File</button>
+            </div>
+
+            <div id="converter-stage" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h3>Preview</h3>
+                    <button class="btn" onclick="window.print()">Save as PDF</button>
+                </div>
+                <!-- Preview area used for printing -->
+                <div id="preview-container"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script>
+        const fileInput = document.getElementById('file-input');
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                const arrayBuffer = event.target.result;
+                mammoth.convertToHtml({ arrayBuffer: arrayBuffer })
+                    .then(displayResult)
+                    .catch(handleError);
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+        function displayResult(result) {
+            document.getElementById('drop-zone').style.display = 'none';
+            document.getElementById('converter-stage').style.display = 'block';
+            document.getElementById('preview-container').innerHTML = result.value;
+        }
+
+        function handleError(err) {
+            console.log(err);
+            alert("Error reading file.");
+        }
+    </script>
+</body>
+
+</html>

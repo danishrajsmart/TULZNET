@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Viewer & Formatter - Tulz.net</title>
+    <meta name="description"
+        content="Validate, format, and beautify your JSON code online. Free recursive JSON viewer for developers.">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        textarea {
+            font-family: monospace;
+        }
+
+        .error {
+            color: #ef4444;
+            margin-top: 0.5rem;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#dev-tools">Dev Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-container">
+            <h1>JSON Formatter & Viewer</h1>
+
+            <textarea id="json-input" rows="10" placeholder="Paste your JSON here..."></textarea>
+            <div id="error-msg" class="error">Invalid JSON</div>
+
+            <div class="tools-grid" style="grid-template-columns: repeat(2, 1fr); margin-top: 1rem;">
+                <button class="btn" onclick="formatJSON()">Beautify</button>
+                <button class="btn btn-secondary" onclick="minifyJSON()">Minify</button>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Result:</h3>
+            <textarea id="json-output" rows="10" readonly placeholder="Result will appear here..."></textarea>
+            <button class="btn btn-sm" onclick="copyOutput()" style="margin-top: 0.5rem;">Copy Result</button>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script>
+        const input = document.getElementById('json-input');
+        const output = document.getElementById('json-output');
+        const error = document.getElementById('error-msg');
+
+        function formatJSON() {
+            try {
+                const obj = JSON.parse(input.value);
+                output.value = JSON.stringify(obj, null, 4);
+                error.style.display = 'none';
+            } catch (e) {
+                error.textContent = "Error: " + e.message;
+                error.style.display = 'block';
+            }
+        }
+
+        function minifyJSON() {
+            try {
+                const obj = JSON.parse(input.value);
+                output.value = JSON.stringify(obj);
+                error.style.display = 'none';
+            } catch (e) {
+                error.textContent = "Error: " + e.message;
+                error.style.display = 'block';
+            }
+        }
+
+        function copyOutput() {
+            navigator.clipboard.writeText(output.value);
+            alert("Copied!");
+        }
+    </script>
+</body>
+
+</html>
