@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <!-- Main Pages -->
-    <url><loc>https://danishrajsmart.github.io/TULZNET/index.html</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
+    <!-- Main -->
+    <url><loc>https://danishrajsmart.github.io/TULZNET/index.html</loc><priority>1.0</priority></url>
     
+    <!-- AI Tools -->
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/remove-bg.html</loc><priority>0.9</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/ai-writer.html</loc><priority>0.9</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/text-speech.html</loc><priority>0.9</priority></url>
+
     <!-- PDF Tools -->
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/jpg-to-pdf.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/merge-pdf.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/word-to-pdf.html</loc><priority>0.9</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/split-pdf.html</loc><priority>0.9</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/rotate-pdf.html</loc><priority>0.9</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/jpg-to-pdf.html</loc><priority>0.9</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/merge-pdf.html</loc><priority>0.9</priority></url>
+
+    <!-- Dev Tools -->
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/json-viewer.html</loc><priority>0.8</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/css-minifier.html</loc><priority>0.8</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/diff-checker.html</loc><priority>0.8</priority></url>
     
-    <!-- Image Tools -->
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/image-resizer.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/qr-generator.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/color-converter.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-    
-    <!-- Text Tools -->
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/word-counter.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/password-generator.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/case-converter.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/lorem-ipsum.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/timestamp-converter.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-    
-    <!-- Calc Tools -->
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/age-calculator.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/bmi-calculator.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+    <!-- Others -->
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/image-resizer.html</loc><priority>0.8</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/qr-generator.html</loc><priority>0.8</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/case-converter.html</loc><priority>0.8</priority></url>
 </urlset>
