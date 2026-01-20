@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Converter - Tulz.net</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#dev-tools">Dev Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <main class="container">
+        <div class="tool-container">
+            <h1>Unit Converter</h1>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div>
+                    <label>Kilometers</label>
+                    <input type="number" id="km" oninput="convert('km')">
+                </div>
+                <div>
+                    <label>Miles</label>
+                    <input type="number" id="miles" oninput="convert('miles')">
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="../js/main.js"></script>
+    <script>
+        function convert(from) {
+            const km = document.getElementById('km');
+            const miles = document.getElementById('miles');
+            if (from === 'km') miles.value = (km.value * 0.621371).toFixed(4);
+            if (from === 'miles') km.value = (miles.value / 0.621371).toFixed(4);
+        }
+    </script>
+</body>
+
+</html>

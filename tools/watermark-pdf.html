@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watermark PDF - Tulz.net</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#pdf-tools">PDF Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-container">
+            <h1>Watermark PDF</h1>
+            <div id="drop-zone" class="upload-zone">
+                <input type="file" id="file-input" accept="application/pdf" style="display: none;">
+                <button class="btn btn-secondary" onclick="document.getElementById('file-input').click()">Select
+                    PDF</button>
+            </div>
+
+            <div id="edit-stage" style="display: none;">
+                <div class="input-group">
+                    <label>Watermark Text</label>
+                    <input type="text" id="wm-text" value="CONFIDENTIAL">
+                </div>
+                <button class="btn" onclick="addWatermark()">Download PDF</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script>
+        let pdfBytes = null;
+        document.getElementById('file-input').addEventListener('change', async (e) => {
+            pdfBytes = await e.target.files[0].arrayBuffer();
+            document.getElementById('drop-zone').style.display = 'none';
+            document.getElementById('edit-stage').style.display = 'block';
+        });
+
+        async function addWatermark() {
+            const pdfDoc = await PDFLib.PDFDocument.load(pdfBytes);
+            const text = document.getElementById('wm-text').value;
+            const pages = pdfDoc.getPages();
+            const { width, height } = pages[0].getSize();
+
+            pages.forEach(page => {
+                page.drawText(text, {
+                    x: width / 2 - 50,
+                    y: height / 2,
+                    size: 50,
+                    color: PDFLib.rgb(0.95, 0.1, 0.1),
+                    opacity: 0.5,
+                    rotate: PDFLib.degrees(45),
+                });
+            });
+
+            const savedBytes = await pdfDoc.save();
+            const blob = new Blob([savedBytes], { type: 'application/pdf' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'watermarked.pdf';
+            link.click();
+        }
+    </script>
+</body>
+
+</html>

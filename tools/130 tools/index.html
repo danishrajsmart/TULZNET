@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMESH.dev - 130+ Free Online Developer Tools</title>
+  <meta name="description"
+    content="Free online tools for developers: Hash generators (MD5, SHA, BLAKE), Encryption (AES, RSA, DES), Encoding (Base64, Hex, URL), JSON/XML formatters, and more.">
+  <meta name="keywords"
+    content="online tools,md5,sha256,base64,hash,encryption,decryption,json formatter,developer tools,free tools">
+  <meta property="og:title" content="SMESH.dev - 130+ Free Online Developer Tools">
+  <meta property="og:description" content="Free online tools for hashing, encoding, encryption, formatting and more.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://smesh.dev">
+  <link rel="icon" href="images/logo.svg">
+  <link rel="stylesheet" href="css/homepage.css">
+</head>
+
+<body class="homepage">
+  <!-- Animated Background -->
+  <div class="bg-animation">
+    <div class="orb"></div>
+    <div class="orb"></div>
+    <div class="orb"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-content">
+      <a href="./" class="logo">
+        <img src="images/logo.svg" alt="SMESH.dev Logo">
+        <span class="logo-text">SMESH.dev</span>
+      </a>
+      <div class="header-actions">
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="Search tools..." autocomplete="off">
+        </div>
+        <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+          <img class="light" src="images/light.svg" alt="Light mode">
+          <img class="dark" src="images/dark.svg" alt="Dark mode" style="display:none;">
+        </button>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-badge">
+        <span>🚀</span>
+        <span>130+ Free Tools</span>
+      </div>
+      <h1>Your Ultimate <span class="gradient-text">Developer Toolbox</span></h1>
+      <p>Powerful online tools for hashing, encryption, encoding, formatting, and more. Fast, secure, and completely
+        free to use. No registration required.</p>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-number">130+</div>
+          <div class="stat-label">Tools Available</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">6</div>
+          <div class="stat-label">Categories</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Free Forever</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Category Navigation -->
+    <nav class="category-nav">
+      <div class="category-tabs">
+        <button class="category-tab active" data-category="all"><span class="icon">📦</span> All Tools</button>
+        <button class="category-tab" data-category="hash"><span class="icon">🔐</span> Hash</button>
+        <button class="category-tab" data-category="crypto"><span class="icon">🔒</span> Cryptography</button>
+        <button class="category-tab" data-category="encoding"><span class="icon">🔄</span> Encoding</button>
+        <button class="category-tab" data-category="format"><span class="icon">📄</span> Format</button>
+        <button class="category-tab" data-category="convert"><span class="icon">🔀</span> Convert</button>
+        <button class="category-tab" data-category="others"><span class="icon">✨</span> Others</button>
+      </div>
+    </nav>
+
+    <!-- Tools Container -->
+    <div class="tools-container">
+      <!-- Hash Section -->
+      <section class="category-section" data-section="hash">
+        <div class="section-header">
+          <div class="section-icon hash">🔐</div>
+          <h2 class="section-title">Hash Functions</h2>
+          <span class="section-count">70+ tools</span>
+        </div>
+        <div class="tools-grid">
+          <!-- CRC -->
+          <div class="tool-card hash">
+            <div class="tool-card-header">
+              <h3>CRC Checksums</h3>
+              <div class="tool-card-icon">📊</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="crc/">CRC Tool</a>
+            </div>
+          </div>
+          <!-- MD -->
+          <div class="tool-card hash">
+            <div class="tool-card-header">
+              <h3>MD Hash</h3>
+              <div class="tool-card-icon">#</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="md2.html">MD2</a>
+              <a href="md4.html">MD4</a>
+              <a href="md5.html">MD5</a>
+              <a href="md5_checksum.html">MD5 File</a>
+            </div>
+          </div>
+          <!-- SHA1 -->
+          <div class="tool-card hash">
+            <div class="tool-card-header">
+              <h3>SHA-1</h3>
+              <div class="tool-card-icon">🔑</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="sha1.html">SHA1</a>
+              <a href="sha1_checksum.html">SHA1 File</a>
+            </div>
+          </div>
+          <!-- SHA2 -->
+          <div class="tool-card hash">
+            <div class="tool-card-header">
+              <h3>SHA-2</h3>
+              <div class="tool-card-icon">🔐</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="sha224.html">SHA224</a>
+              <a href="sha256.html">SHA256</a>
+              <a href="double_sha256.html">Double SHA256</a>
+            </div>
+          </div>
+          <!-- SHA2-512 -->
+          <div class="tool-card hash">
+            <div class="tool-card-header">
+              <h3>SHA-512</h3>
+              <div class="tool-card-icon">🛡️</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="sha384.html">SHA384</a>
+              <a href="sha512.html">SHA512</a>
+              <a href="sha512_224.html">SHA512/224</a>
+              <a href="sha512_256.html">SHA512/256</a>
+            </div>
+          </div>
+          <!-- SHA3 -->
+          <div class="tool-card hash">
+            <div class="tool-card-header">
+              <h3>SHA-3</h3>
+              <div class="tool-card-icon">🔏</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="sha3_224.html">SHA3-224</a>
+              <a href="sha3_256.html">SHA3-256</a>
+              <a href="sha3_384.html">SHA3-384</a>
+              <a href="sha3_512.html">SHA3-512</a>
+            </div>
+          </div>
+          <!-- Keccak -->
+          <div class="tool-card hash">
+            <div class="tool-card-header">
+              <h3>Keccak</h3>
+              <div class="tool-card-icon">⚡</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="keccak_224.html">Keccak-224</a>
+              <a href="keccak_256.html">Keccak-256</a>
+              <a href="keccak_384.html">Keccak-384</a>
+              <a href="keccak_512.html">Keccak-512</a>
+            </div>
+          </div>
+          <!-- SHAKE -->
+          <div class="tool-card hash">
+            <div class="tool-card-header">
+              <h3>SHAKE</h3>
+              <div class="tool-card-icon">🌀</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="shake128/">SHAKE128</a>
+              <a href="shake256/">SHAKE256</a>
+              <a href="cshake128/">cSHAKE128</a>
+              <a href="cshake256/">cSHAKE256</a>
+            </div>
+          </div>
+          <!-- KMAC -->
+          <div class="tool-card hash">
+            <div class="tool-card-header">
+              <h3>KMAC</h3>
+              <div class="tool-card-icon">🔗</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="kmac128/">KMAC128</a>
+              <a href="kmac256/">KMAC256</a>
+            </div>
+          </div>
+          <!-- RIPEMD -->
+          <div class="tool-card hash">
+            <div class="tool-card-header">
+              <h3>RIPEMD</h3>
+              <div class="tool-card-icon">🔀</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="ripemd-128/">RIPEMD-128</a>
+              <a href="ripemd-160/">RIPEMD-160</a>
+              <a href="ripemd-256/">RIPEMD-256</a>
+              <a href="ripemd-320/">RIPEMD-320</a>
+            </div>
+          </div>
+          <!-- BLAKE -->
+          <div class="tool-card hash">
+            <div class="tool-card-header">
+              <h3>BLAKE</h3>
+              <div class="tool-card-icon">⬛</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="blake2b/">BLAKE2b</a>
+              <a href="blake2s/">BLAKE2s</a>
+              <a href="blake3/">BLAKE3</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Cryptography Section -->
+      <section class="category-section" data-section="crypto">
+        <div class="section-header">
+          <div class="section-icon crypto">🔒</div>
+          <h2 class="section-title">Cryptography</h2>
+          <span class="section-count">16 tools</span>
+        </div>
+        <div class="tools-grid">
+          <!-- AES -->
+          <div class="tool-card crypto">
+            <div class="tool-card-header">
+              <h3>AES Encryption</h3>
+              <div class="tool-card-icon">🔐</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="aes/encrypt/">Encrypt</a>
+              <a href="aes/decrypt/">Decrypt</a>
+            </div>
+          </div>
+          <!-- DES -->
+          <div class="tool-card crypto">
+            <div class="tool-card-header">
+              <h3>DES Encryption</h3>
+              <div class="tool-card-icon">🗝️</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="des/encrypt/">Encrypt</a>
+              <a href="des/decrypt/">Decrypt</a>
+            </div>
+          </div>
+          <!-- Triple DES -->
+          <div class="tool-card crypto">
+            <div class="tool-card-header">
+              <h3>Triple DES</h3>
+              <div class="tool-card-icon">🔑</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="triple-des/encrypt/">Encrypt</a>
+              <a href="triple-des/decrypt/">Decrypt</a>
+            </div>
+          </div>
+          <!-- RC4 -->
+          <div class="tool-card crypto">
+            <div class="tool-card-header">
+              <h3>RC4 Stream Cipher</h3>
+              <div class="tool-card-icon">🌊</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="rc4/encrypt/">Encrypt</a>
+              <a href="rc4/decrypt/">Decrypt</a>
+            </div>
+          </div>
+          <!-- ECDSA -->
+          <div class="tool-card crypto">
+            <div class="tool-card-header">
+              <h3>ECDSA</h3>
+              <div class="tool-card-icon">📝</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="ecdsa/key-generator/">Key Gen</a>
+              <a href="ecdsa/sign/">Sign</a>
+              <a href="ecdsa/verify/">Verify</a>
+            </div>
+          </div>
+          <!-- RSA -->
+          <div class="tool-card crypto">
+            <div class="tool-card-header">
+              <h3>RSA</h3>
+              <div class="tool-card-icon">🔏</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="rsa/key-generator/">Key Gen</a>
+              <a href="rsa/encrypt/">Encrypt</a>
+              <a href="rsa/decrypt/">Decrypt</a>
+              <a href="rsa/sign/">Sign</a>
+              <a href="rsa/verify/">Verify</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Encoding Section -->
+      <section class="category-section" data-section="encoding">
+        <div class="section-header">
+          <div class="section-icon encoding">🔄</div>
+          <h2 class="section-title">Encoding & Decoding</h2>
+          <span class="section-count">22 tools</span>
+        </div>
+        <div class="tools-grid">
+          <!-- Hex -->
+          <div class="tool-card encoding">
+            <div class="tool-card-header">
+              <h3>Hex (Base16)</h3>
+              <div class="tool-card-icon">16</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="hex_encode.html">Encode</a>
+              <a href="hex_decode.html">Decode</a>
+              <a href="hex_encode_file.html">File to Hex</a>
+            </div>
+          </div>
+          <!-- Base32 -->
+          <div class="tool-card encoding">
+            <div class="tool-card-header">
+              <h3>Base32</h3>
+              <div class="tool-card-icon">32</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="base32_encode.html">Encode</a>
+              <a href="base32_decode.html">Decode</a>
+              <a href="base32_encode_file.html">File Encode</a>
+            </div>
+          </div>
+          <!-- Base58 -->
+          <div class="tool-card encoding">
+            <div class="tool-card-header">
+              <h3>Base58</h3>
+              <div class="tool-card-icon">58</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="base58/encode/">Encode</a>
+              <a href="base58/decode/">Decode</a>
+            </div>
+          </div>
+          <!-- Base64 -->
+          <div class="tool-card encoding">
+            <div class="tool-card-header">
+              <h3>Base64</h3>
+              <div class="tool-card-icon">64</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="base64_encode.html">Encode</a>
+              <a href="base64_decode.html">Decode</a>
+              <a href="base64_encode_file.html">File Encode</a>
+            </div>
+          </div>
+          <!-- HTML -->
+          <div class="tool-card encoding">
+            <div class="tool-card-header">
+              <h3>HTML Encode</h3>
+              <div class="tool-card-icon">&lt;&gt;</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="html_encode.html">Encode</a>
+              <a href="html_decode.html">Decode</a>
+            </div>
+          </div>
+          <!-- URL -->
+          <div class="tool-card encoding">
+            <div class="tool-card-header">
+              <h3>URL Encode</h3>
+              <div class="tool-card-icon">🔗</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="url_encode.html">Encode</a>
+              <a href="url_decode.html">Decode</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Format Section -->
+      <section class="category-section" data-section="format">
+        <div class="section-header">
+          <div class="section-icon format">📄</div>
+          <h2 class="section-title">Formatters & Validators</h2>
+          <span class="section-count">7 tools</span>
+        </div>
+        <div class="tools-grid">
+          <!-- JSON -->
+          <div class="tool-card format">
+            <div class="tool-card-header">
+              <h3>JSON Tools</h3>
+              <div class="tool-card-icon">{}</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="json/validator/">Validator</a>
+              <a href="json/formatter/">Formatter</a>
+              <a href="json/minifier/">Minifier</a>
+              <a href="json/viewer/">Viewer</a>
+            </div>
+          </div>
+          <!-- XML -->
+          <div class="tool-card format">
+            <div class="tool-card-header">
+              <h3>XML Tools</h3>
+              <div class="tool-card-icon">&lt;/&gt;</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="xml/validator/">Validator</a>
+              <a href="xml/formatter/">Formatter</a>
+              <a href="xml/minifier/">Minifier</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Convert Section -->
+      <section class="category-section" data-section="convert">
+        <div class="section-header">
+          <div class="section-icon convert">🔀</div>
+          <h2 class="section-title">Text Converters</h2>
+          <span class="section-count">7 tools</span>
+        </div>
+        <div class="tools-grid">
+          <!-- Case Converters -->
+          <div class="tool-card convert">
+            <div class="tool-card-header">
+              <h3>Case Converters</h3>
+              <div class="tool-card-icon">Aa</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="case/lower/">lower case</a>
+              <a href="case/upper/">UPPER CASE</a>
+              <a href="case/lower-camel/">camelCase</a>
+              <a href="case/upper-camel/">PascalCase</a>
+              <a href="case/snake/">snake_case</a>
+              <a href="case/kebab/">kebab-case</a>
+              <a href="case/constant/">CONSTANT</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Others Section -->
+      <section class="category-section" data-section="others">
+        <div class="section-header">
+          <div class="section-icon others">✨</div>
+          <h2 class="section-title">Other Tools</h2>
+          <span class="section-count">2 tools</span>
+        </div>
+        <div class="tools-grid">
+          <!-- QR Code -->
+          <div class="tool-card others">
+            <div class="tool-card-header">
+              <h3>QR Code Generator</h3>
+              <div class="tool-card-icon">📱</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="qr-code/generator/">Generate QR Code</a>
+            </div>
+          </div>
+          <!-- Syntax Highlight -->
+          <div class="tool-card others">
+            <div class="tool-card-header">
+              <h3>Syntax Highlighter</h3>
+              <div class="tool-card-icon">🎨</div>
+            </div>
+            <div class="tool-card-links">
+              <a href="syntax-highlight/">Highlight Code</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-logo">SMESH.dev</div>
+      <p class="footer-text">Free online developer tools. Fast, secure, and privacy-focused.</p>
+      <div class="footer-links">
+        <a href="https://github.com/emn178/online-tools/issues">Report Issue</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Category Filter
+    document.querySelectorAll('.category-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const category = tab.dataset.category;
+        document.querySelectorAll('.category-section').forEach(section => {
+          if (category === 'all' || section.dataset.section === category) {
+            section.style.display = 'block';
+          } else {
+            section.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Search
+    document.getElementById('searchInput')?.addEventListener('input', (e) => {
+      const query = e.target.value.toLowerCase();
+      document.querySelectorAll('.tool-card').forEach(card => {
+        const text = card.textContent.toLowerCase();
+        card.style.display = text.includes(query) ? 'block' : 'none';
+      });
+      if (query) {
+        document.querySelectorAll('.category-section').forEach(s => s.style.display = 'block');
+        document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+      }
+    });
+
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+      themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-theme');
+      });
+    }
+  </script>
+</body>
+
+</html>

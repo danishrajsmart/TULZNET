@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favicon Generator - Tulz.net</title>
+    <meta name="description" content="Generate favicons for websites. Create .ico files from PNG/JPG.">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#image-tools">Image Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-container">
+            <h1>Favicon Generator</h1>
+            <p class="text-muted">Upload an image to get a standard 32x32 .ico/png favicon.</p>
+
+            <div id="drop-zone" class="upload-zone">
+                <div class="tool-icon">⭐</div>
+                <h3>Upload Image</h3>
+                <input type="file" id="file-input" accept="image/*" style="display: none;">
+                <button class="btn btn-secondary" onclick="document.getElementById('file-input').click()">Select
+                    Image</button>
+            </div>
+
+            <div id="result-stage" style="display: none; text-align:center;">
+                <h3>Favicon Ready</h3>
+                <canvas id="canvas" width="32" height="32" style="border: 1px solid #ccc; margin: 2rem;"></canvas>
+                <br>
+                <button class="btn" onclick="download()">Download Favicon (32x32)</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script>
+        document.getElementById('file-input').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.getElementById('canvas');
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, 32, 32);
+                    document.getElementById('drop-zone').style.display = 'none';
+                    document.getElementById('result-stage').style.display = 'block';
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function download() {
+            const canvas = document.getElementById('canvas');
+            const link = document.createElement('a');
+            link.download = 'favicon.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+    </script>
+</body>
+
+</html>

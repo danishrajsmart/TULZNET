@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Generator - Tulz.net</title>
+    <meta name="description" content="Create memes online directly in your browser. Upload photo and add text.">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#image-tools">Image Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-container">
+            <h1>Meme Generator</h1>
+
+            <div id="drop-zone" class="upload-zone">
+                <div class="tool-icon">🤣</div>
+                <h3>Upload Image</h3>
+                <input type="file" id="file-input" accept="image/*" style="display: none;">
+                <button class="btn btn-secondary" onclick="document.getElementById('file-input').click()">Select Meme
+                    Template</button>
+            </div>
+
+            <div id="edit-stage" style="display: none; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <canvas id="canvas"
+                    style="max-width: 100%; border: 1px solid var(--border); box-shadow: var(--shadow);"></canvas>
+
+                <div class="controls">
+                    <div class="input-group">
+                        <label>Top Text</label>
+                        <input type="text" id="top-text" placeholder="TOP TEXT" oninput="draw()">
+                    </div>
+                    <div class="input-group">
+                        <label>Bottom Text</label>
+                        <input type="text" id="bottom-text" placeholder="BOTTOM TEXT" oninput="draw()">
+                    </div>
+                    <button class="btn" onclick="download()" style="width: 100%;">Download Meme</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let img = new Image();
+
+        document.getElementById('file-input').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                img.onload = () => {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    draw();
+                    document.getElementById('drop-zone').style.display = 'none';
+                    document.getElementById('edit-stage').style.display = 'grid';
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0);
+
+            const top = document.getElementById('top-text').value.toUpperCase();
+            const bottom = document.getElementById('bottom-text').value.toUpperCase();
+
+            ctx.lineWidth = 5;
+            ctx.strokeStyle = 'black';
+            ctx.fillStyle = 'white';
+            ctx.textAlign = 'center';
+            ctx.lineJoin = 'round';
+            ctx.font = `bold ${canvas.width / 10}px Impact`;
+
+            // Top
+            ctx.textBaseline = 'top';
+            ctx.strokeText(top, canvas.width / 2, 10);
+            ctx.fillText(top, canvas.width / 2, 10);
+
+            // Bottom
+            ctx.textBaseline = 'bottom';
+            ctx.strokeText(bottom, canvas.width / 2, canvas.height - 10);
+            ctx.fillText(bottom, canvas.width / 2, canvas.height - 10);
+        }
+
+        function download() {
+            const link = document.createElement('a');
+            link.download = 'meme.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protect PDF - Tulz.net</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#pdf-tools">PDF Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-container">
+            <h1>Protect PDF</h1>
+            <div id="drop-zone" class="upload-zone">
+                <input type="file" id="file-input" accept="application/pdf" style="display: none;">
+                <button class="btn btn-secondary" onclick="document.getElementById('file-input').click()">Select
+                    PDF</button>
+            </div>
+
+            <div id="edit-stage" style="display: none;">
+                <div class="input-group">
+                    <label>Set Password</label>
+                    <input type="password" id="password">
+                </div>
+                <button class="btn" onclick="protect()">Encryt & Download</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script>
+        let pdfBytes = null;
+        document.getElementById('file-input').addEventListener('change', async (e) => {
+            pdfBytes = await e.target.files[0].arrayBuffer();
+            document.getElementById('drop-zone').style.display = 'none';
+            document.getElementById('edit-stage').style.display = 'block';
+        });
+
+        async function protect() {
+            const pdfDoc = await PDFLib.PDFDocument.load(pdfBytes);
+            const password = document.getElementById('password').value;
+            pdfDoc.encrypt({ userPassword: password, ownerPassword: password });
+            const savedBytes = await pdfDoc.save();
+
+            const blob = new Blob([savedBytes], { type: 'application/pdf' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'protected.pdf';
+            link.click();
+        }
+    </script>
+</body>
+
+</html>

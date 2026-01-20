@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel to PDF Converter - Tulz.net</title>
+    <meta name="description" content="Convert Excel (XLSX) spreadsheets to PDF online. Native browser conversion.">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        #preview-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        #preview-table td,
+        #preview-table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            font-size: 0.9rem;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            #print-area,
+            #print-area * {
+                visibility: visible;
+            }
+
+            #print-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#pdf-tools">PDF Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-container">
+            <h1>Excel to PDF</h1>
+            <p class="text-muted">Convert XLSX files to PDF by printing.</p>
+
+            <div id="drop-zone" class="upload-zone">
+                <div class="tool-icon">📊</div>
+                <h3>Upload Excel File</h3>
+                <input type="file" id="file-input" accept=".xlsx, .xls" style="display: none;">
+                <button class="btn btn-secondary" onclick="document.getElementById('file-input').click()">Select
+                    File</button>
+            </div>
+
+            <div id="result-stage" style="display: none;">
+                <button class="btn" onclick="window.print()">Save as PDF</button>
+                <div id="print-area" style="overflow-x: auto;"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script>
+        document.getElementById('file-input').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                const html = XLSX.utils.sheet_to_html(firstSheet);
+
+                document.getElementById('print-area').innerHTML = html;
+                document.getElementById('drop-zone').style.display = 'none';
+                document.getElementById('result-stage').style.display = 'block';
+            };
+            reader.readAsArrayBuffer(file);
+        });
+    </script>
+</body>
+
+</html>

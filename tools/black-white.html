@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Black & White Filter - Tulz.net</title>
+    <meta name="description" content="Convert images to Black and White (Grayscale) online. Free photo effect tool.">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#image-tools">Image Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-container">
+            <h1>Black & White Converter</h1>
+            <p class="text-muted">Instantly turn your photos into artistic grayscale images.</p>
+
+            <div id="drop-zone" class="upload-zone">
+                <div class="tool-icon">⚫</div>
+                <h3>Upload Image</h3>
+                <input type="file" id="file-input" accept="image/*" style="display: none;">
+                <button class="btn btn-secondary" onclick="document.getElementById('file-input').click()">Select
+                    Image</button>
+            </div>
+
+            <div id="result-stage" style="display: none; text-align: center;">
+                <canvas id="canvas"
+                    style="max-width: 100%; border-radius: 0.5rem; margin: 1rem 0; border: 1px solid var(--border); box-shadow: var(--shadow);"></canvas>
+                <br>
+                <button class="btn" onclick="download()">Download B&W Image</button>
+                <button class="btn btn-secondary" onclick="location.reload()">Convert Another</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        document.getElementById('file-input').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const img = new Image();
+                img.onload = () => {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+
+                    ctx.filter = 'grayscale(100%)';
+                    ctx.drawImage(img, 0, 0);
+
+                    document.getElementById('drop-zone').style.display = 'none';
+                    document.getElementById('result-stage').style.display = 'block';
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function download() {
+            const link = document.createElement('a');
+            link.download = 'bw-image.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+    </script>
+</body>
+
+</html>

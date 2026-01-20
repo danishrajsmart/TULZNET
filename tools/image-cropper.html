@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Cropper - Tulz.net</title>
+    <meta name="description" content="Crop images online for free. Cut photos to custom sizes.">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <style>
+        #image-container {
+            max-height: 500px;
+            background: #333;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#image-tools">Image Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-container">
+            <h1>Image Cropper</h1>
+
+            <div id="drop-zone" class="upload-zone">
+                <div class="tool-icon">✂️</div>
+                <h3>Upload Image to Crop</h3>
+                <input type="file" id="file-input" accept="image/*" style="display: none;">
+                <button class="btn btn-secondary" onclick="document.getElementById('file-input').click()">Select
+                    Image</button>
+            </div>
+
+            <div id="edit-stage" style="display: none;">
+                <div id="image-container">
+                    <img id="image-to-crop">
+                </div>
+                <button class="btn" onclick="crop()" style="width: 100%; margin-top: 1rem;">Crop & Download</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script>
+        let cropper;
+        document.getElementById('file-input').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const img = document.getElementById('image-to-crop');
+                img.src = event.target.result;
+                document.getElementById('drop-zone').style.display = 'none';
+                document.getElementById('edit-stage').style.display = 'block';
+
+                cropper = new Cropper(img, {
+                    aspectRatio: NaN,
+                    viewMode: 1
+                });
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function crop() {
+            const canvas = cropper.getCroppedCanvas();
+            const link = document.createElement('a');
+            link.download = 'cropped-image.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+    </script>
+</body>
+
+</html>

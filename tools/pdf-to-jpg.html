@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF to JPG - Tulz.net</title>
+    <meta name="description" content="Convert PDF pages to JPG images.">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#pdf-tools">PDF Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-container">
+            <h1>PDF to JPG</h1>
+            <div id="drop-zone" class="upload-zone">
+                <div class="tool-icon">🏞️</div>
+                <h3>Upload PDF</h3>
+                <input type="file" id="file-input" accept="application/pdf" style="display: none;">
+                <button class="btn btn-secondary" onclick="document.getElementById('file-input').click()">Select
+                    PDF</button>
+            </div>
+            <div id="result-stage"></div>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script>
+        document.getElementById('file-input').addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            const arrayBuffer = await file.arrayBuffer();
+            const pdf = await pdfjsLib.getDocument(arrayBuffer).promise;
+
+            document.getElementById('drop-zone').style.display = 'none';
+            const container = document.getElementById('result-stage');
+
+            for (let i = 1; i <= pdf.numPages; i++) {
+                const page = await pdf.getPage(i);
+                const viewport = page.getViewport({ scale: 1.5 });
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                canvas.style.maxWidth = '100%';
+                canvas.style.margin = '1rem 0';
+                canvas.style.border = '1px solid #ccc';
+
+                await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+
+                container.appendChild(canvas);
+
+                // Add download link for each page
+                const link = document.createElement('a');
+                link.innerHTML = `Download Page ${i}`;
+                link.className = 'btn btn-secondary';
+                link.style.display = 'block';
+                link.style.marginBottom = '2rem';
+                link.onclick = () => {
+                    link.href = canvas.toDataURL('image/jpeg');
+                    link.download = `page-${i}.jpg`;
+                };
+                container.appendChild(link);
+            }
+        });
+    </script>
+</body>
+
+</html>
