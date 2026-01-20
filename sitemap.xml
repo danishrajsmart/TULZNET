@@ -3,31 +3,28 @@
     <!-- Main -->
     <url><loc>https://danishrajsmart.github.io/TULZNET/index.html</loc><priority>1.0</priority></url>
     
-    <!-- Image Tools -->
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/jpg-to-png.html</loc><priority>0.9</priority></url>
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/png-to-jpg.html</loc><priority>0.9</priority></url>
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/webp-converter.html</loc><priority>0.9</priority></url>
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/image-flip.html</loc><priority>0.9</priority></url>
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/remove-bg.html</loc><priority>0.9</priority></url>
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/image-resizer.html</loc><priority>0.8</priority></url>
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/qr-generator.html</loc><priority>0.8</priority></url>
-
-    <!-- AI Tools -->
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/ai-writer.html</loc><priority>0.9</priority></url>
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/text-speech.html</loc><priority>0.9</priority></url>
-
-    <!-- PDF Tools -->
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/word-to-pdf.html</loc><priority>0.9</priority></url>
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/split-pdf.html</loc><priority>0.9</priority></url>
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/rotate-pdf.html</loc><priority>0.9</priority></url>
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/jpg-to-pdf.html</loc><priority>0.9</priority></url>
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/merge-pdf.html</loc><priority>0.9</priority></url>
-
-    <!-- Dev Tools -->
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/json-viewer.html</loc><priority>0.8</priority></url>
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/css-minifier.html</loc><priority>0.8</priority></url>
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/diff-checker.html</loc><priority>0.8</priority></url>
+    <!-- Dev Pack - Security -->
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/dev-pack/md5.html</loc><priority>0.8</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/dev-pack/sha1.html</loc><priority>0.8</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/dev-pack/sha256.html</loc><priority>0.8</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/dev-pack/aes/encrypt/index.html</loc><priority>0.8</priority></url>
     
-    <!-- Others -->
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/case-converter.html</loc><priority>0.8</priority></url>
+    <!-- Dev Pack - Encoders -->
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/dev-pack/base64_encode.html</loc><priority>0.8</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/dev-pack/base64_decode.html</loc><priority>0.8</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/dev-pack/url_encode.html</loc><priority>0.8</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/dev-pack/hex_encode.html</loc><priority>0.8</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/dev-pack/html_encode.html</loc><priority>0.8</priority></url>
+
+    <!-- Dev Pack - Formatters -->
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/dev-pack/json_viewer.html</loc><priority>0.8</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/dev-pack/json_formatter.html</loc><priority>0.8</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/dev-pack/xml/formatter/index.html</loc><priority>0.8</priority></url>
+
+    <!-- Original Tools -->
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/jpg-to-png.html</loc><priority>0.9</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/remove-bg.html</loc><priority>0.9</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/ai-writer.html</loc><priority>0.9</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/watermark-image.html</loc><priority>0.9</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/meme-generator.html</loc><priority>0.9</priority></url>
 </urlset>
