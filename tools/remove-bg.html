@@ -8,9 +8,11 @@
     <meta name="description"
         content="Remove image backgrounds instantly in your browser. No API keys, no uploads to servers. 100% Free & Private.">
     <link rel="stylesheet" href="../css/style.css">
+    <!-- COI Service Worker (Required for WASM/SharedArrayBuffer) -->
+    <script src="../js/coi-serviceworker.js"></script>
     <!-- Load imgly background removal -->
-    <script
-        src="https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.0.3/dist/imgly-background-removal.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.0.3/dist/imgly-background-removal.min.js"
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -42,7 +44,7 @@
 
             <div id="processing" style="display:none; text-align:center; padding:2rem;">
                 <div class="spinner" style="font-size:3rem; animation: spin 1s infinite linear;">⏳</div>
-                <p style="margin-top:1rem;">Removing background... (First time may take a moment to load AI models)</p>
+                <p style="margin-top:1rem;">Removing background... (loading AI models...)</p>
             </div>
 
             <div id="result-stage" style="display: none; text-align: center;">
@@ -85,16 +87,28 @@
             errorMsg.style.display = 'none';
 
             try {
-                // Ensure imgly is loaded
-                if (typeof imglyBackgroundRemoval === 'undefined') {
-                    throw new Error("Library failed to load. Please refresh.");
+                // Check if the library loaded (It usually exposes 'imglyRemoveBackground' as a global function)
+                // Sometimes it might be namespaced, let's try both common patterns.
+                let removeBgFn = window.imglyRemoveBackground;
+
+                if (typeof removeBgFn !== 'function') {
+                    // Fallback check if it was loaded as an object
+                    if (window.imglyBackgroundRemoval && typeof window.imglyBackgroundRemoval.removeBackground === 'function') {
+                        removeBgFn = window.imglyBackgroundRemoval.removeBackground;
+                    }
+                }
+
+                if (typeof removeBgFn !== 'function') {
+                    throw new Error("Library failed to load (Global function not found). Check connection.");
                 }
 
                 // Run background removal
                 // Using Blob input
-                const blob = await imglyBackgroundRemoval.removeBackground(file, {
+                const blob = await removeBgFn(file, {
                     progress: (key, current, total) => {
                         console.log(`Downloading ${key}: ${current} of ${total}`);
+                        const percent = Math.round((current / total) * 100);
+                        processing.querySelector('p').innerText = `Removing background... (${percent}%)`;
                     }
                 });
 
@@ -111,7 +125,7 @@
                 console.error(err);
                 processing.style.display = 'none';
                 dropZone.style.display = 'block';
-                errorMsg.textContent = "Error: " + err.message + ". Try a different image or browser.";
+                errorMsg.textContent = "Error: " + err.message + ". Please try refreshing the page.";
                 errorMsg.style.display = 'block';
             }
         });
