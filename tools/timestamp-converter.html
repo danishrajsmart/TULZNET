@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unix Timestamp Converter - Tulz.net</title>
+    <meta name="description"
+        content="Convert Unix Timestamp to human readable dates and vice versa. Free online epoch time converter.">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#all-tools">More Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../index.html">Home</a> <span>/</span> Timestamp Converter
+        </div>
+
+        <div class="tool-container">
+            <h1 style="margin-bottom: 2rem;">Unix Timestamp Converter</h1>
+
+            <!-- Epoch to Human -->
+            <div style="margin-bottom: 3rem;">
+                <h3>Epoch to Date</h3>
+                <div class="input-group" style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                    <input type="number" id="epoch-input" placeholder="e.g. 1673849200">
+                    <button class="btn" style="white-space: nowrap;" onclick="convertEpoch()">Convert</button>
+                </div>
+                <div id="human-result" style="margin-top: 0.5rem; font-weight: bold; color: var(--primary);"></div>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid var(--border); margin: 2rem 0;">
+
+            <!-- Human to Epoch -->
+            <div>
+                <h3>Date to Epoch</h3>
+                <div class="input-group" style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                    <input type="datetime-local" id="date-input">
+                    <button class="btn" style="white-space: nowrap;" onclick="convertDate()">Convert</button>
+                </div>
+                <div id="epoch-result" style="margin-top: 0.5rem; font-weight: bold; color: var(--primary);"></div>
+            </div>
+
+            <div style="margin-top: 2rem; text-align: center;">
+                <button class="btn btn-sm" style="background: var(--text-muted); width: auto;"
+                    onclick="setCurrent()">Use Current Time</button>
+            </div>
+        </div>
+
+        <!-- Related Tools -->
+        <section style="margin-top: 4rem;">
+            <h2>Other Tools</h2>
+            <div class="tools-grid">
+                <article class="tool-card">
+                    <div class="tool-icon">🎂</div>
+                    <h3>Age Calculator</h3>
+                    <a href="age-calculator.html" class="btn btn-sm">Open Tool</a>
+                </article>
+                <article class="tool-card">
+                    <div class="tool-icon">⚖️</div>
+                    <h3>BMI Calculator</h3>
+                    <a href="bmi-calculator.html" class="btn btn-sm">Open Tool</a>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="current-year"></span> Tulz.net</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        function convertEpoch() {
+            const val = document.getElementById('epoch-input').value;
+            if (!val) return;
+            const date = new Date(val * 1000); // JS uses ms
+            document.getElementById('human-result').textContent = date.toString();
+        }
+
+        function convertDate() {
+            const val = document.getElementById('date-input').value;
+            if (!val) return;
+            const date = new Date(val);
+            const epoch = Math.floor(date.getTime() / 1000);
+            document.getElementById('epoch-result').textContent = epoch;
+        }
+
+        function setCurrent() {
+            const now = Math.floor(Date.now() / 1000);
+            document.getElementById('epoch-input').value = now;
+            convertEpoch();
+        }
+
+        // Init with current time for easier testing
+        setCurrent();
+    </script>
+</body>
+
+</html>

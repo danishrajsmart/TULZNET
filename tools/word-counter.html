@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word & Character Counter - Tulz.net</title>
+    <meta name="description"
+        content="Free online word, character, sentence, and paragraph counter. Real-time analysis for writers and SEOs.">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#all-tools">More Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../index.html">Home</a> <span>/</span> Word Counter
+        </div>
+
+        <div class="tool-container">
+            <h1 style="margin-bottom: 2rem;">Word & Character Counter</h1>
+
+            <textarea id="text-input" rows="10" placeholder="Type or paste your text here..."
+                style="resize: vertical; margin-bottom: 1.5rem;"></textarea>
+
+            <div class="tools-grid"
+                style="margin-top: 0; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+                <div
+                    style="background: var(--bg-body); padding: 1rem; border-radius: 0.5rem; text-align: center; border: 1px solid var(--border);">
+                    <div id="word-count" style="font-size: 2rem; font-weight: bold; color: var(--primary);">0</div>
+                    <div style="color: var(--text-muted);">Words</div>
+                </div>
+                <div
+                    style="background: var(--bg-body); padding: 1rem; border-radius: 0.5rem; text-align: center; border: 1px solid var(--border);">
+                    <div id="char-count" style="font-size: 2rem; font-weight: bold; color: var(--primary);">0</div>
+                    <div style="color: var(--text-muted);">Characters</div>
+                </div>
+                <div
+                    style="background: var(--bg-body); padding: 1rem; border-radius: 0.5rem; text-align: center; border: 1px solid var(--border);">
+                    <div id="sentence-count" style="font-size: 2rem; font-weight: bold; color: var(--primary);">0</div>
+                    <div style="color: var(--text-muted);">Sentences</div>
+                </div>
+                <div
+                    style="background: var(--bg-body); padding: 1rem; border-radius: 0.5rem; text-align: center; border: 1px solid var(--border);">
+                    <div id="paragraph-count" style="font-size: 2rem; font-weight: bold; color: var(--primary);">0</div>
+                    <div style="color: var(--text-muted);">Paragraphs</div>
+                </div>
+            </div>
+            <button id="clear-btn" class="btn btn-sm" style="margin-top: 1.5rem; background-color: #ef4444;">Clear
+                Text</button>
+        </div>
+
+        <!-- Related Tools -->
+        <section style="margin-top: 4rem;">
+            <h2>Other Tools</h2>
+            <div class="tools-grid">
+                <article class="tool-card">
+                    <div class="tool-icon">📄</div>
+                    <h3>Lorem Ipsum Generator</h3>
+                    <a href="lorem-ipsum.html" class="btn btn-sm">Open Tool</a>
+                </article>
+                <article class="tool-card">
+                    <div class="tool-icon">🔒</div>
+                    <h3>Password Generator</h3>
+                    <a href="password-generator.html" class="btn btn-sm">Open Tool</a>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="current-year"></span> Tulz.net</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        const textInput = document.getElementById('text-input');
+        const wordCount = document.getElementById('word-count');
+        const charCount = document.getElementById('char-count');
+        const sentenceCount = document.getElementById('sentence-count');
+        const paragraphCount = document.getElementById('paragraph-count');
+        const clearBtn = document.getElementById('clear-btn');
+
+        function updateCounts() {
+            const text = textInput.value;
+
+            // Characters
+            charCount.innerText = text.length;
+
+            // Words
+            const words = text.trim().split(/\s+/).filter(word => word.length > 0);
+            wordCount.innerText = words.length;
+
+            // Sentences (approximate)
+            const sentences = text.split(/[.!?]+/).filter(sentence => sentence.trim().length > 0);
+            sentenceCount.innerText = sentences.length;
+
+            // Paragraphs
+            const paragraphs = text.split(/\n+/).filter(p => p.trim().length > 0);
+            paragraphCount.innerText = paragraphs.length;
+        }
+
+        textInput.addEventListener('input', updateCounts);
+        clearBtn.addEventListener('click', () => {
+            textInput.value = '';
+            updateCounts();
+            textInput.focus();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RGB to Hex Color Converter - Tulz.net</title>
+    <meta name="description"
+        content="Convert RGB values to Hex color codes and vice versa. Free online color converter for web designers and developers.">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#all-tools">More Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../index.html">Home</a> <span>/</span> Color Converter
+        </div>
+
+        <div class="tool-container">
+            <h1 style="margin-bottom: 2rem;">RGB <-> Hex Converter</h1>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center;">
+                <div>
+                    <div class="input-group">
+                        <label>Red (0-255)</label>
+                        <input type="number" id="r" min="0" max="255" value="59" oninput="updateFromRGB()">
+                    </div>
+                    <div class="input-group">
+                        <label>Green (0-255)</label>
+                        <input type="number" id="g" min="0" max="255" value="130" oninput="updateFromRGB()">
+                    </div>
+                    <div class="input-group">
+                        <label>Blue (0-255)</label>
+                        <input type="number" id="b" min="0" max="255" value="246" oninput="updateFromRGB()">
+                    </div>
+                </div>
+
+                <div style="text-align: center;">
+                    <div id="color-preview"
+                        style="width: 150px; height: 150px; background-color: #3b82f6; border-radius: 50%; border: 4px solid var(--border); margin: 0 auto 1.5rem;">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Hex Code</label>
+                        <div style="position: relative;">
+                            <span
+                                style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-muted);">#</span>
+                            <input type="text" id="hex" value="3b82f6"
+                                style="padding-left: 1.5rem; font-family: monospace; font-size: 1.2rem; text-transform: uppercase;"
+                                oninput="updateFromHex()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Tools -->
+        <section style="margin-top: 4rem;">
+            <h2>Other Tools</h2>
+            <div class="tools-grid">
+                <article class="tool-card">
+                    <div class="tool-icon">🔒</div>
+                    <h3>Password Generator</h3>
+                    <a href="password-generator.html" class="btn btn-sm">Open Tool</a>
+                </article>
+                <article class="tool-card">
+                    <div class="tool-icon">🎨</div>
+                    <h3>Lorem Ipsum</h3>
+                    <a href="lorem-ipsum.html" class="btn btn-sm">Open Tool</a>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="current-year"></span> Tulz.net</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        const rInput = document.getElementById('r');
+        const gInput = document.getElementById('g');
+        const bInput = document.getElementById('b');
+        const hexInput = document.getElementById('hex');
+        const preview = document.getElementById('color-preview');
+
+        function componentToHex(c) {
+            const hex = parseInt(c).toString(16);
+            return hex.length == 1 ? "0" + hex : hex;
+        }
+
+        function rgbToHex(r, g, b) {
+            return componentToHex(r) + componentToHex(g) + componentToHex(b);
+        }
+
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? {
+                r: parseInt(result[1], 16),
+                g: parseInt(result[2], 16),
+                b: parseInt(result[3], 16)
+            } : null;
+        }
+
+        function updateFromRGB() {
+            let r = Math.min(255, Math.max(0, rInput.value));
+            let g = Math.min(255, Math.max(0, gInput.value));
+            let b = Math.min(255, Math.max(0, bInput.value));
+
+            const hex = rgbToHex(r, g, b);
+            hexInput.value = hex;
+            preview.style.backgroundColor = "#" + hex;
+        }
+
+        function updateFromHex() {
+            let hex = hexInput.value.replace('#', '');
+            if (hex.length === 6) {
+                const rgb = hexToRgb(hex);
+                if (rgb) {
+                    rInput.value = rgb.r;
+                    gInput.value = rgb.g;
+                    bInput.value = rgb.b;
+                    preview.style.backgroundColor = "#" + hex;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

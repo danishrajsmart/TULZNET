@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator - Tulz.net</title>
+    <meta name="description"
+        content="Calculate your exact age in years, months, and days. Simple, fast online age calculator.">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#all-tools">More Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../index.html">Home</a> <span>/</span> Age Calculator
+        </div>
+
+        <div class="tool-container">
+            <h1 style="margin-bottom: 2rem;">Age Calculator</h1>
+
+            <div class="input-group">
+                <label for="birthdate">Select Date of Birth:</label>
+                <input type="date" id="birthdate">
+            </div>
+
+            <button id="calc-btn" class="btn" style="width: 100%;">Calculate Age</button>
+
+            <div id="result-box" class="result-box" style="text-align: center; display: none;">
+                <div style="font-size: 1.2rem; color: var(--text-muted);">You are</div>
+                <div id="age-result"
+                    style="font-size: 2.5rem; font-weight: 800; color: var(--primary); margin: 0.5rem 0;"></div>
+                <div style="font-size: 1.2rem; color: var(--text-muted);">old</div>
+            </div>
+        </div>
+
+        <!-- Related Tools -->
+        <section style="margin-top: 4rem;">
+            <h2>Other Tools</h2>
+            <div class="tools-grid">
+                <article class="tool-card">
+                    <div class="tool-icon">⚖️</div>
+                    <h3>BMI Calculator</h3>
+                    <a href="bmi-calculator.html" class="btn btn-sm">Open Tool</a>
+                </article>
+                <article class="tool-card">
+                    <div class="tool-icon">🕒</div>
+                    <h3>Timestamp Converter</h3>
+                    <a href="timestamp-converter.html" class="btn btn-sm">Open Tool</a>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="current-year"></span> Tulz.net</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        const birthdateInput = document.getElementById('birthdate');
+        const calcBtn = document.getElementById('calc-btn');
+        const resultBox = document.getElementById('result-box');
+        const ageResult = document.getElementById('age-result');
+
+        calcBtn.addEventListener('click', () => {
+            const birthValue = birthdateInput.value;
+            if (!birthValue) {
+                alert('Please select your birthdate first!');
+                return;
+            }
+
+            const birthDate = new Date(birthValue);
+            const today = new Date();
+
+            let years = today.getFullYear() - birthDate.getFullYear();
+            let months = today.getMonth() - birthDate.getMonth();
+            let days = today.getDate() - birthDate.getDate();
+
+            if (days < 0) {
+                months--;
+                days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            ageResult.innerHTML = `${years} <span style="font-size:1.5rem">Years</span> ${months} <span style="font-size:1.5rem">Months</span> ${days} <span style="font-size:1.5rem">Days</span>`;
+            resultBox.style.display = 'block';
+        });
+    </script>
+</body>
+
+</html>

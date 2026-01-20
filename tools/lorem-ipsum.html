@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lorem Ipsum Generator - Tulz.net</title>
+    <meta name="description"
+        content="Generate random Lorem Ipsum placeholder text for your designs. Choose number of paragraphs, sentences, or words.">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#all-tools">More Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../index.html">Home</a> <span>/</span> Lorem Ipsum Generator
+        </div>
+
+        <div class="tool-container">
+            <h1 style="margin-bottom: 2rem;">Lorem Ipsum Generator</h1>
+
+            <div class="input-group">
+                <label>Number of Paragraphs: <span id="count-val">3</span></label>
+                <input type="range" id="count" min="1" max="20" value="3">
+            </div>
+
+            <button id="generate-btn" class="btn" style="width: 100%;">Generate Text</button>
+
+            <div class="result-box" style="position: relative; margin-top: 2rem;">
+                <button id="copy-btn" class="btn btn-sm"
+                    style="position: absolute; top: 1rem; right: 1rem; width: auto; background: var(--text-muted);">Copy
+                    All</button>
+                <div id="output" style="white-space: pre-wrap; margin-top: 1rem; line-height: 1.8;"></div>
+            </div>
+        </div>
+
+        <!-- Related Tools -->
+        <section style="margin-top: 4rem;">
+            <h2>Other Tools</h2>
+            <div class="tools-grid">
+                <article class="tool-card">
+                    <div class="tool-icon">📝</div>
+                    <h3>Word Counter</h3>
+                    <a href="word-counter.html" class="btn btn-sm">Open Tool</a>
+                </article>
+                <article class="tool-card">
+                    <div class="tool-icon">🎨</div>
+                    <h3>Color Converter</h3>
+                    <a href="color-converter.html" class="btn btn-sm">Open Tool</a>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; <span id="current-year"></span> Tulz.net</p>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        const lorem = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
+
+        const countSlider = document.getElementById('count');
+        const countVal = document.getElementById('count-val');
+        const output = document.getElementById('output');
+        const generateBtn = document.getElementById('generate-btn');
+        const copyBtn = document.getElementById('copy-btn');
+
+        countSlider.oninput = () => countVal.textContent = countSlider.value;
+
+        function generate() {
+            const count = parseInt(countSlider.value);
+            let text = '';
+            for (let i = 0; i < count; i++) {
+                text += lorem + '\n\n';
+            }
+            output.textContent = text.trim();
+        }
+
+        generateBtn.onclick = generate;
+        generate();
+
+        copyBtn.onclick = () => {
+            navigator.clipboard.writeText(output.textContent);
+            const original = copyBtn.textContent;
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => copyBtn.textContent = original, 1500);
+        };
+    </script>
+</body>
+
+</html>
