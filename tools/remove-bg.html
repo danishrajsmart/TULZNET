@@ -10,9 +10,8 @@
     <link rel="stylesheet" href="../css/style.css">
     <!-- COI Service Worker (Required for WASM/SharedArrayBuffer) -->
     <script src="../js/coi-serviceworker.js"></script>
-    <!-- Load imgly background removal -->
-    <script src="https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.0.3/dist/imgly-background-removal.min.js"
-        crossorigin="anonymous"></script>
+    <!-- Load imgly background removal locally -->
+    <script src="../js/imgly.js"></script>
 </head>
 
 <body>
@@ -31,7 +30,18 @@
     <main class="container">
         <div class="tool-container">
             <h1>Remove Background</h1>
-            <p class="text-muted">100% Free. Runs locally on your device. No API Key required.</p>
+            <p class="text-muted">100% Free. Runs locally using SharedArrayBuffer & WebAssembly.</p>
+
+            <!-- Status Monitor -->
+            <div id="status-box"
+                style="margin-bottom: 2rem; padding: 10px; background: #f8f9fa; border-radius: 4px; font-size: 0.9rem; text-align: left;">
+                <strong>System Status:</strong>
+                <ul style="margin: 0; padding-left: 1.2rem;">
+                    <li id="status-sw">Service Worker: Checking...</li>
+                    <li id="status-sab">SharedArrayBuffer: Checking...</li>
+                    <li id="status-lib">Library Loaded: Checking...</li>
+                </ul>
+            </div>
 
             <div id="drop-zone" class="upload-zone">
                 <div class="tool-icon">🪄</div>
@@ -44,7 +54,9 @@
 
             <div id="processing" style="display:none; text-align:center; padding:2rem;">
                 <div class="spinner" style="font-size:3rem; animation: spin 1s infinite linear;">⏳</div>
-                <p style="margin-top:1rem;">Removing background... (loading AI models...)</p>
+                <p id="progress-text" style="margin-top:1rem;">Initializing AI Engine...</p>
+                <pre id="debug-log"
+                    style="text-align: left; background: #eee; padding: 10px; margin-top: 10px; height: 100px; overflow: auto; font-size: 0.8rem;"></pre>
             </div>
 
             <div id="result-stage" style="display: none; text-align: center;">
@@ -72,6 +84,39 @@
 
     <script src="../js/main.js"></script>
     <script>
+        const log = (msg) => {
+            console.log(msg);
+            const el = document.getElementById('debug-log');
+            if (el) {
+                el.innerText += msg + '\n';
+                el.scrollTop = el.scrollHeight;
+            }
+        };
+
+        // 1. Check Capabilities
+        window.addEventListener('load', () => {
+            // SW Check
+            if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+                document.getElementById('status-sw').innerHTML = "Service Worker: <span style='color:green'>Active</span>";
+            } else {
+                document.getElementById('status-sw').innerHTML = "Service Worker: <span style='color:orange'>Inactive (Reload Page)</span>";
+            }
+
+            // SharedArrayBuffer Check
+            if (window.crossOriginIsolated) {
+                document.getElementById('status-sab').innerHTML = "SharedArrayBuffer: <span style='color:green'>Available (High Performance)</span>";
+            } else {
+                document.getElementById('status-sab').innerHTML = "SharedArrayBuffer: <span style='color:red'>Unavailable (Will be Slow/Fail)</span>. Only works on https:// and localhost.";
+            }
+
+            // Library Check
+            if (typeof imglyBackgroundRemoval !== 'undefined' || typeof window.imglyRemoveBackground === 'function') {
+                document.getElementById('status-lib').innerHTML = "Library Loaded: <span style='color:green'>Yes</span>";
+            } else {
+                document.getElementById('status-lib').innerHTML = "Library Loaded: <span style='color:red'>Failed</span>";
+            }
+        });
+
         const fileInput = document.getElementById('file-input');
         const dropZone = document.getElementById('drop-zone');
         const processing = document.getElementById('processing');
@@ -85,33 +130,45 @@
             dropZone.style.display = 'none';
             processing.style.display = 'block';
             errorMsg.style.display = 'none';
+            log("Starting process...");
 
             try {
-                // Check if the library loaded (It usually exposes 'imglyRemoveBackground' as a global function)
-                // Sometimes it might be namespaced, let's try both common patterns.
                 let removeBgFn = window.imglyRemoveBackground;
 
+                // Fallback discovery
                 if (typeof removeBgFn !== 'function') {
-                    // Fallback check if it was loaded as an object
                     if (window.imglyBackgroundRemoval && typeof window.imglyBackgroundRemoval.removeBackground === 'function') {
                         removeBgFn = window.imglyBackgroundRemoval.removeBackground;
                     }
                 }
 
-                if (typeof removeBgFn !== 'function') {
-                    throw new Error("Library failed to load (Global function not found). Check connection.");
+                // If library was loaded as UMD/module under different name in local file
+                if (typeof removeBgFn !== 'function' && typeof imglyBackgroundRemoval === 'object') {
+                    // Start guessing
+                    if (imglyBackgroundRemoval.removeBackground) removeBgFn = imglyBackgroundRemoval.removeBackground;
                 }
 
-                // Run background removal
-                // Using Blob input
-                const blob = await removeBgFn(file, {
-                    progress: (key, current, total) => {
-                        console.log(`Downloading ${key}: ${current} of ${total}`);
-                        const percent = Math.round((current / total) * 100);
-                        processing.querySelector('p').innerText = `Removing background... (${percent}%)`;
-                    }
-                });
+                if (typeof removeBgFn !== 'function') {
+                    throw new Error("Library function not found. Check 'Library Loaded' status.");
+                }
 
+                log("Library found. Calling removeBackground...");
+
+                // Config: Force public path if needed, or rely on defaults
+                // We point to the CDN for ASSETS (wasm/onnx) because they are huge, but use local JS logic.
+                const config = {
+                    publicPath: "https://static.img.ly/background-removal-data/1.0.3/",
+                    progress: (key, current, total) => {
+                        const percent = Math.round((current / total) * 100);
+                        document.getElementById('progress-text').innerText = `Loading Model (${key}): ${percent}%`;
+                        log(`DL ${key}: ${percent}%`);
+                    },
+                    debug: true
+                };
+
+                const blob = await removeBgFn(file, config);
+
+                log("Processing complete. Creating URL...");
                 const url = URL.createObjectURL(blob);
 
                 document.getElementById('result-img').src = url;
@@ -123,9 +180,9 @@
 
             } catch (err) {
                 console.error(err);
-                processing.style.display = 'none';
-                dropZone.style.display = 'block';
-                errorMsg.textContent = "Error: " + err.message + ". Please try refreshing the page.";
+                log("ERROR: " + err.message);
+                processing.querySelector('.spinner').style.display = 'none';
+                errorMsg.innerHTML = "<strong>Error:</strong> " + err.message + "<br>Check the debug log above.";
                 errorMsg.style.display = 'block';
             }
         });
