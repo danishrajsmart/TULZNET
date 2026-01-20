@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator - Tulz.net</title>
+    <meta name="description"
+        content="Free online QR code generator. Create instant QR codes for URLs, text, Wi-Fi, and more.">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#image-tools">Image Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../index.html">Home</a> <span>/</span> QR Code Generator
+        </div>
+
+        <div class="tool-container" style="text-align: center;">
+            <h1>QR Code Generator</h1>
+
+            <div class="input-group" style="text-align: left;">
+                <label>Enter URL or Text</label>
+                <input type="text" id="qr-text" placeholder="https://example.com" />
+            </div>
+
+            <button onclick="generateQR()" class="btn" style="width: 100%; margin-bottom: 2rem;">Generate QR
+                Code</button>
+
+            <div id="qrcode"
+                style="display: inline-block; padding: 1rem; background: white; border: 1px solid var(--border); border-radius: 0.5rem;">
+            </div>
+
+            <p id="hint" style="margin-top: 1rem; color: var(--text-muted); display: none;">Right-click the image to
+                save it.</p>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script>
+        const qrContainer = document.getElementById('qrcode');
+        const hint = document.getElementById('hint');
+        let qrcode = null;
+
+        function generateQR() {
+            const text = document.getElementById('qr-text').value;
+            if (!text) return;
+
+            qrContainer.innerHTML = ''; // Clear previous
+            qrcode = new QRCode(qrContainer, {
+                text: text,
+                width: 256,
+                height: 256,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+
+            hint.style.display = 'block';
+        }
+
+        // Generate on Enter key
+        document.getElementById('qr-text').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') generateQR();
+        });
+    </script>
+</body>
+
+</html>

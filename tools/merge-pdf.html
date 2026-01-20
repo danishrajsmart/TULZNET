@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merge PDF Files Online - Tulz.net</title>
+    <meta name="description"
+        content="Combine multiple PDF files into one single PDF document. Free, fast, and secure. Merging happens in your browser.">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#pdf-tools">PDF Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../index.html">Home</a> <span>/</span> Merge PDF
+        </div>
+
+        <div class="tool-container">
+            <h1>Merge PDF Files</h1>
+            <p style="margin-bottom: 2rem; color: var(--text-muted);">Select multiple PDF files to combine them into
+                one.</p>
+
+            <div id="drop-zone" class="upload-zone">
+                <div class="tool-icon">📑</div>
+                <h3>Drag & Drop PDFs Here</h3>
+                <p>or</p>
+                <button class="btn btn-secondary" onclick="document.getElementById('file-input').click()">Select PDF
+                    Files</button>
+                <input type="file" id="file-input" multiple accept="application/pdf" style="display: none;">
+            </div>
+
+            <div id="file-list" style="display: grid; gap: 1rem; margin-bottom: 2rem;"></div>
+
+            <button id="merge-btn" class="btn" style="width: 100%; display: none;">Merge & Download</button>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script>
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const fileList = document.getElementById('file-list');
+        const mergeBtn = document.getElementById('merge-btn');
+        let selectedFiles = [];
+
+        // Drag & Drop Styling
+        dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+        function handleFiles(files) {
+            if (files.length > 0) {
+                // Filter only pdfs
+                const pdfs = Array.from(files).filter(f => f.type === 'application/pdf');
+                selectedFiles = [...selectedFiles, ...pdfs];
+                renderFileList();
+                if (selectedFiles.length > 1) mergeBtn.style.display = 'block';
+            }
+        }
+
+        function renderFileList() {
+            fileList.innerHTML = '';
+            selectedFiles.forEach((file, index) => {
+                const item = document.createElement('div');
+                item.style.cssText = 'display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; border: 1px solid var(--border); border-radius: 0.5rem; background: var(--bg-body);';
+                item.innerHTML = `<span>${file.name}</span> <button onclick="removeFile(${index})" style="background:none; border:none; color:red; cursor:pointer;">✕</button>`;
+                fileList.appendChild(item);
+            });
+        }
+
+        window.removeFile = (index) => {
+            selectedFiles.splice(index, 1);
+            renderFileList();
+            if (selectedFiles.length < 2) mergeBtn.style.display = 'none';
+        };
+
+        mergeBtn.onclick = async () => {
+            mergeBtn.textContent = "Merging...";
+            mergeBtn.disabled = true;
+
+            try {
+                const { PDFDocument } = window.PDFLib;
+                const mergedPdf = await PDFDocument.create();
+
+                for (const file of selectedFiles) {
+                    const arrayBuffer = await file.arrayBuffer();
+                    const pdf = await PDFDocument.load(arrayBuffer);
+                    const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+                    copiedPages.forEach((page) => mergedPdf.addPage(page));
+                }
+
+                const pdfBytes = await mergedPdf.save();
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'merged-document.pdf';
+                link.click();
+            } catch (err) {
+                console.error(err);
+                alert("Error merging files. Ensure they are valid PDFs.");
+            }
+
+            mergeBtn.textContent = "Merge & Download";
+            mergeBtn.disabled = false;
+        };
+    </script>
+</body>
+
+</html>

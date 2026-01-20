@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Converter - Tulz.net</title>
+    <meta name="description"
+        content="Convert text between Uppercase, Lowercase, Title Case, and Sentence Case instantly.">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#text-tools">Text Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../index.html">Home</a> <span>/</span> Case Converter
+        </div>
+
+        <div class="tool-container">
+            <h1>Case Converter</h1>
+
+            <textarea id="text-input" rows="8" placeholder="Type or paste your text here..."
+                style="margin-bottom: 1.5rem;"></textarea>
+
+            <div class="tools-grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+                <button class="btn btn-secondary" onclick="convert('upper')">UPPERCASE</button>
+                <button class="btn btn-secondary" onclick="convert('lower')">lowercase</button>
+                <button class="btn btn-secondary" onclick="convert('title')">Title Case</button>
+                <button class="btn btn-secondary" onclick="convert('sentence')">Sentence case</button>
+                <button class="btn btn-secondary" onclick="convert('inverse')">iNVERSE cASE</button>
+                <button class="btn" onclick="copyText()">Copy Text</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script>
+        const input = document.getElementById('text-input');
+
+        function convert(mode) {
+            let text = input.value;
+
+            switch (mode) {
+                case 'upper':
+                    text = text.toUpperCase();
+                    break;
+                case 'lower':
+                    text = text.toLowerCase();
+                    break;
+                case 'title':
+                    text = text.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+                    break;
+                case 'sentence':
+                    text = text.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g, c => c.toUpperCase());
+                    break;
+                case 'inverse':
+                    text = text.split('').map(c => c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()).join('');
+                    break;
+            }
+
+            input.value = text;
+        }
+
+        function copyText() {
+            input.select();
+            navigator.clipboard.writeText(input.value);
+            alert('Copied to clipboard!');
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JPG to PDF Converter - Tulz.net</title>
+    <meta name="description"
+        content="Convert JPG, PNG, or WebP images to a single PDF document online. Free, fast, and secure. Run entirely in your browser.">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#pdf-tools">PDF Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../index.html">Home</a> <span>/</span> JPG to PDF
+        </div>
+
+        <div class="tool-container">
+            <h1>JPG to PDF Converter</h1>
+            <p style="margin-bottom: 2rem; color: var(--text-muted);">Convert your images into a single PDF file
+                instantly.</p>
+
+            <div id="drop-zone" class="upload-zone">
+                <div class="tool-icon">🖼️</div>
+                <h3>Drag & Drop Images Here</h3>
+                <p>or</p>
+                <button class="btn btn-secondary" onclick="document.getElementById('file-input').click()">Select
+                    Images</button>
+                <input type="file" id="file-input" multiple accept="image/*" style="display: none;">
+            </div>
+
+            <div id="file-list" style="display: grid; gap: 1rem; margin-bottom: 2rem;"></div>
+
+            <button id="convert-btn" class="btn" style="width: 100%; display: none;">Download PDF</button>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script>
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const fileList = document.getElementById('file-list');
+        const convertBtn = document.getElementById('convert-btn');
+        let selectedFiles = [];
+
+        // Drag & Drop Styling
+        dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+        function handleFiles(files) {
+            if (files.length > 0) {
+                selectedFiles = [...selectedFiles, ...Array.from(files)];
+                renderFileList();
+                convertBtn.style.display = 'block';
+            }
+        }
+
+        function renderFileList() {
+            fileList.innerHTML = '';
+            selectedFiles.forEach((file, index) => {
+                const item = document.createElement('div');
+                item.style.cssText = 'display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; border: 1px solid var(--border); border-radius: 0.5rem;';
+                item.innerHTML = `<span>${file.name}</span> <button onclick="removeFile(${index})" style="background:none; border:none; color:red; cursor:pointer;">✕</button>`;
+                fileList.appendChild(item);
+            });
+        }
+
+        window.removeFile = (index) => {
+            selectedFiles.splice(index, 1);
+            renderFileList();
+            if (selectedFiles.length === 0) convertBtn.style.display = 'none';
+        };
+
+        convertBtn.onclick = async () => {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF();
+
+            for (let i = 0; i < selectedFiles.length; i++) {
+                const file = selectedFiles[i];
+                const imgData = await readFileAsDataURL(file);
+                const imgProps = pdf.getImageProperties(imgData);
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+                if (i > 0) pdf.addPage();
+                pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+            }
+
+            pdf.save('tulz-converted.pdf');
+        };
+
+        function readFileAsDataURL(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+    </script>
+</body>
+
+</html>

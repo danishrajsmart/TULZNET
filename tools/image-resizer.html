@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Resizer Online - Tulz.net</title>
+    <meta name="description"
+        content="Resize JPG, PNG, or WebP images online free. Change dimensions or percentage without losing quality.">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#image-tools">Image Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="breadcrumbs">
+            <a href="../index.html">Home</a> <span>/</span> Image Resizer
+        </div>
+
+        <div class="tool-container">
+            <h1>Image Resizer</h1>
+
+            <div id="upload-stage">
+                <div id="drop-zone" class="upload-zone">
+                    <div class="tool-icon">🖼️</div>
+                    <h3>Upload Image to Resize</h3>
+                    <input type="file" id="file-input" accept="image/*" style="display: none;">
+                    <button class="btn btn-secondary" onclick="document.getElementById('file-input').click()">Select
+                        Image</button>
+                </div>
+            </div>
+
+            <div id="edit-stage" style="display: none;">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <img id="preview-img"
+                        style="max-width: 100%; max-height: 300px; border-radius: 0.5rem; border: 1px solid var(--border);">
+                    <p id="original-dims" style="color: var(--text-muted); margin-top: 0.5rem;"></p>
+                </div>
+
+                <div class="input-group">
+                    <label>Resize By:</label>
+                    <select id="resize-mode" onchange="toggleMode()">
+                        <option value="percentage">Percentage</option>
+                        <option value="dimensions">Dimensions (Pixels)</option>
+                    </select>
+                </div>
+
+                <div id="percentage-controls">
+                    <label>Scale: <span id="scale-val">50%</span></label>
+                    <input type="range" id="scale-range" min="1" max="100" value="50" oninput="updateScaleLabel()">
+                </div>
+
+                <div id="dimension-controls" style="display: none; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div>
+                        <label>Width</label>
+                        <input type="number" id="width-input">
+                    </div>
+                    <div>
+                        <label>Height</label>
+                        <input type="number" id="height-input">
+                    </div>
+                </div>
+
+                <button id="download-btn" class="btn" style="width: 100%; margin-top: 2rem;">Resize & Download</button>
+                <button class="btn btn-secondary" style="width: 100%; margin-top: 1rem;"
+                    onclick="location.reload()">Upload New</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script>
+        const fileInput = document.getElementById('file-input');
+        const uploadStage = document.getElementById('upload-stage');
+        const editStage = document.getElementById('edit-stage');
+        const previewImg = document.getElementById('preview-img');
+        const originalDims = document.getElementById('original-dims');
+
+        let originalImage = null;
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    previewImg.src = event.target.result;
+                    originalImage = new Image();
+                    originalImage.onload = () => {
+                        originalDims.textContent = `Original: ${originalImage.width} x ${originalImage.height}px`;
+                        // Init dimension inputs
+                        document.getElementById('width-input').value = Math.floor(originalImage.width / 2);
+                        document.getElementById('height-input').value = Math.floor(originalImage.height / 2);
+
+                        uploadStage.style.display = 'none';
+                        editStage.style.display = 'block';
+                    };
+                    originalImage.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function toggleMode() {
+            const mode = document.getElementById('resize-mode').value;
+            document.getElementById('percentage-controls').style.display = mode === 'percentage' ? 'block' : 'none';
+            document.getElementById('dimension-controls').style.display = mode === 'dimensions' ? 'grid' : 'none';
+        }
+
+        function updateScaleLabel() {
+            document.getElementById('scale-val').textContent = document.getElementById('scale-range').value + '%';
+        }
+
+        document.getElementById('download-btn').onclick = () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const mode = document.getElementById('resize-mode').value;
+
+            let w, h;
+
+            if (mode === 'percentage') {
+                const percent = document.getElementById('scale-range').value / 100;
+                w = originalImage.width * percent;
+                h = originalImage.height * percent;
+            } else {
+                w = parseInt(document.getElementById('width-input').value);
+                h = parseInt(document.getElementById('height-input').value);
+            }
+
+            canvas.width = w;
+            canvas.height = h;
+            ctx.drawImage(originalImage, 0, 0, w, h);
+
+            const link = document.createElement('a');
+            link.download = 'resized-image.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        };
+    </script>
+</body>
+
+</html>
