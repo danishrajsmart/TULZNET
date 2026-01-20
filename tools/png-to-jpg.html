@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PNG to JPG Converter - Tulz.net</title>
+    <meta name="description" content="Convert PNG images to JPG format. Automatically handles transparency.">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="../index.html" class="logo">Tulz.net</a>
+                <div class="nav-links">
+                    <a href="../index.html">Home</a>
+                    <a href="../index.html#image-tools">Image Tools</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tool-container">
+            <h1>PNG to JPG Converter</h1>
+            <p class="text-muted">Convert PNG images to JPEG format. Transparent backgrounds will become white.</p>
+
+            <div id="drop-zone" class="upload-zone">
+                <div class="tool-icon">🖼️</div>
+                <h3>Upload PNG Image</h3>
+                <input type="file" id="file-input" accept="image/png" style="display: none;">
+                <button class="btn btn-secondary" onclick="document.getElementById('file-input').click()">Select
+                    PNG</button>
+            </div>
+
+            <div id="result-stage" style="display: none; text-align: center;">
+                <h3>Conversion Complete!</h3>
+                <img id="preview-img"
+                    style="max-width: 100%; max-height: 300px; border-radius: 0.5rem; margin: 1rem 0; border: 1px solid var(--border);">
+                <br>
+                <a id="download-link" class="btn">Download JPG</a>
+                <button class="btn btn-secondary" onclick="location.reload()">Convert Another</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script>
+        document.getElementById('file-input').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+
+                    // Fill white background for transparency
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                    ctx.drawImage(img, 0, 0);
+
+                    const jpgUrl = canvas.toDataURL('image/jpeg', 0.9);
+                    document.getElementById('preview-img').src = jpgUrl;
+                    document.getElementById('download-link').href = jpgUrl;
+                    document.getElementById('download-link').download = file.name.replace(/\.png$/i, '') + '.jpg';
+
+                    document.getElementById('drop-zone').style.display = 'none';
+                    document.getElementById('result-stage').style.display = 'block';
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+    </script>
+</body>
+
+</html>

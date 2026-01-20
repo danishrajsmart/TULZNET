@@ -3,8 +3,16 @@
     <!-- Main -->
     <url><loc>https://danishrajsmart.github.io/TULZNET/index.html</loc><priority>1.0</priority></url>
     
-    <!-- AI Tools -->
+    <!-- Image Tools -->
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/jpg-to-png.html</loc><priority>0.9</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/png-to-jpg.html</loc><priority>0.9</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/webp-converter.html</loc><priority>0.9</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/image-flip.html</loc><priority>0.9</priority></url>
     <url><loc>https://danishrajsmart.github.io/TULZNET/tools/remove-bg.html</loc><priority>0.9</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/image-resizer.html</loc><priority>0.8</priority></url>
+    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/qr-generator.html</loc><priority>0.8</priority></url>
+
+    <!-- AI Tools -->
     <url><loc>https://danishrajsmart.github.io/TULZNET/tools/ai-writer.html</loc><priority>0.9</priority></url>
     <url><loc>https://danishrajsmart.github.io/TULZNET/tools/text-speech.html</loc><priority>0.9</priority></url>
 
@@ -21,7 +29,5 @@
     <url><loc>https://danishrajsmart.github.io/TULZNET/tools/diff-checker.html</loc><priority>0.8</priority></url>
     
     <!-- Others -->
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/image-resizer.html</loc><priority>0.8</priority></url>
-    <url><loc>https://danishrajsmart.github.io/TULZNET/tools/qr-generator.html</loc><priority>0.8</priority></url>
     <url><loc>https://danishrajsmart.github.io/TULZNET/tools/case-converter.html</loc><priority>0.8</priority></url>
 </urlset>
